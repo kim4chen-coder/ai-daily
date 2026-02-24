@@ -180,11 +180,31 @@
       background: #1a1a1a;
       color: #666;
       text-align: center;
-      padding: 1.5rem;
+      padding: 2rem 1.5rem;
       margin-top: 3rem;
       font-size: 0.78rem;
     }
     .footer strong { color: #c9a84c; }
+    .footer .source-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem 1rem;
+      margin-top: 1rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer .source-label {
+      color: #555;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+    }
+    .footer .divider {
+      border-top: 1px solid #333;
+      margin: 1rem auto;
+      max-width: 600px;
+    }
   </style>
 </head>
 <body>
@@ -215,12 +235,12 @@
   <section>
     <div class="section-header">
       <h2>AI Research</h2>
-      <span class="count">13 stories</span>
+      <span class="count">10 stories</span>
     </div>
     <div class="news-grid">
       
       <article class="news-card">
-        <h3>Instagram head discusses AI and authenticity</h3>
+        <h3>Instagram head on AI slop concerns</h3>
         <p class="summary">Instagram head Adam Mosseri discusses the impact of AI on authenticity and creator value.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
@@ -231,30 +251,8 @@
       </article>
       
       <article class="news-card">
-        <h3>Suspect discussed violence with ChatGPT</h3>
-        <p class="summary">The suspect in the Tumbler Ridge school shooting had conversations with ChatGPT involving descriptions of gun violence.</p>
-        <div class="card-footer">
-          <span class="badge badge-MEDIUM">
-            MEDIUM
-          </span>
-          
-        </div>
-      </article>
-      
-      <article class="news-card">
-        <h3>AI researchers resign, bots hiring humans</h3>
-        <p class="summary">AI researchers are resigning from companies, and AI agents are hiring humans for various tasks.</p>
-        <div class="card-footer">
-          <span class="badge badge-MEDIUM">
-            MEDIUM
-          </span>
-          
-        </div>
-      </article>
-      
-      <article class="news-card">
-        <h3>Peptides in alternative medicine</h3>
-        <p class="summary">MIT Technology Review discusses the use of peptides in alternative medicine and their potential benefits.</p>
+        <h3>Peptides in technology and wellness</h3>
+        <p class="summary">MIT Technology Review discusses the role of peptides in technology and wellness trends.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
             MEDIUM
@@ -265,7 +263,7 @@
       
       <article class="news-card">
         <h3>Humanoid robots and hidden human work</h3>
-        <p class="summary">MIT Technology Review examines the human work behind humanoid robots and the potential for hidden labor.</p>
+        <p class="summary">MIT Technology Review examines the human work behind humanoid robots.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
             MEDIUM
@@ -276,7 +274,7 @@
       
       <article class="news-card">
         <h3>AI arranged marriage and Fate app</h3>
-        <p class="summary">The Guardian discusses the rise of AI in dating and the introduction of the AI dating app &#39;Fate&#39;.</p>
+        <p class="summary">A Guardian article discusses the rise of AI in dating and the introduction of the Fate app.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
             MEDIUM
@@ -287,7 +285,7 @@
       
       <article class="news-card">
         <h3>OpenAI stops evaluating SWE-bench Verified</h3>
-        <p class="summary">OpenAI stops evaluating SWE-bench Verified due to contamination and flawed tests.</p>
+        <p class="summary">OpenAI discontinues the evaluation of SWE-bench Verified due to contamination and flawed tests.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
             MEDIUM
@@ -298,18 +296,7 @@
       
       <article class="news-card">
         <h3>NVIDIA AI cybersecurity for critical infrastructure</h3>
-        <p class="summary">NVIDIA brings AI-powered cybersecurity to critical infrastructure environments.</p>
-        <div class="card-footer">
-          <span class="badge badge-MEDIUM">
-            MEDIUM
-          </span>
-          
-        </div>
-      </article>
-      
-      <article class="news-card">
-        <h3>AI and Data job market status</h3>
-        <p class="summary">Towards Data Science discusses the current state of the AI and Data job market.</p>
+        <p class="summary">NVIDIA brings AI-powered cybersecurity to critical infrastructure.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
             MEDIUM
@@ -330,8 +317,8 @@
       </article>
       
       <article class="news-card">
-        <h3>Gradient accumulation and data parallelism in AI</h3>
-        <p class="summary">Towards Data Science explains gradient accumulation and data parallelism in AI using PyTorch.</p>
+        <h3>AI in multiple GPUs</h3>
+        <p class="summary">Towards Data Science explains gradient accumulation and data parallelism in AI with multiple GPUs.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
             MEDIUM
@@ -341,7 +328,7 @@
       </article>
       
       <article class="news-card">
-        <h3>Building internal tooling with Claude Code</h3>
+        <h3>Build internal tooling with Claude Code</h3>
         <p class="summary">Towards Data Science discusses building personalized applications with Claude Code.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
@@ -353,7 +340,7 @@
       
       <article class="news-card">
         <h3>Nuclear LLMs and AI policy</h3>
-        <p class="summary">Import AI discusses nuclear LLMs and the implications for AI policy.</p>
+        <p class="summary">Import AI discusses nuclear LLMs and AI policy issues.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
             MEDIUM
@@ -368,7 +355,7 @@
   <section>
     <div class="section-header">
       <h2>Product Launch</h2>
-      <span class="count">4 stories</span>
+      <span class="count">5 stories</span>
     </div>
     <div class="news-grid">
       
@@ -395,8 +382,19 @@
       </article>
       
       <article class="news-card">
+        <h3>Mastercard&#39;s AI payment demo</h3>
+        <p class="summary">Mastercard demonstrates an AI-led commerce transaction at the India AI Impact Summit.</p>
+        <div class="card-footer">
+          <span class="badge badge-MEDIUM">
+            MEDIUM
+          </span>
+          
+        </div>
+      </article>
+      
+      <article class="news-card">
         <h3>Oakley Meta smart glasses review</h3>
-        <p class="summary">ZDNet reviews Oakley&#39;s Meta Vanguard smart glasses, highlighting their AI features.</p>
+        <p class="summary">ZDNet reviews Oakley&#39;s Meta Vanguard smart glasses.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
             MEDIUM
@@ -407,7 +405,7 @@
       
       <article class="news-card">
         <h3>Scosche keychain charger for Apple Watch</h3>
-        <p class="summary">ZDNet reviews the Scosche WatchIt keychain charger for Apple Watch and AirPods.</p>
+        <p class="summary">ZDNet reviews the Scosche WatchIt keychain charger for Apple Watch.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
             MEDIUM
@@ -422,13 +420,24 @@
   <section>
     <div class="section-header">
       <h2>Industry News</h2>
-      <span class="count">4 stories</span>
+      <span class="count">5 stories</span>
     </div>
     <div class="news-grid">
       
       <article class="news-card">
         <h3>Anthropic accuses Chinese firms of AI misuse</h3>
         <p class="summary">Anthropic claims DeepSeek and two other Chinese AI companies misused its Claude AI model to improve their own products.</p>
+        <div class="card-footer">
+          <span class="badge badge-MEDIUM">
+            MEDIUM
+          </span>
+          
+        </div>
+      </article>
+      
+      <article class="news-card">
+        <h3>AI researchers resign, bots hiring humans</h3>
+        <p class="summary">A podcast episode covers AI researchers resigning and AI agents hiring humans.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
             MEDIUM
@@ -449,8 +458,8 @@
       </article>
       
       <article class="news-card">
-        <h3>Mastercard&#39;s AI payment demo</h3>
-        <p class="summary">Mastercard demonstrates an AI-led commerce transaction at the India AI Impact Summit.</p>
+        <h3>Amul&#39;s AI dairy farming initiative</h3>
+        <p class="summary">Amul launches an AI assistant named Sarlaben to assist 3.6 million dairy farmers in India.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
             MEDIUM
@@ -460,8 +469,8 @@
       </article>
       
       <article class="news-card">
-        <h3>Amul&#39;s AI dairy farming</h3>
-        <p class="summary">Amul, the world&#39;s largest dairy cooperative, uses AI to assist 3.6 million farmers in India.</p>
+        <h3>AI and Data job market status</h3>
+        <p class="summary">Towards Data Science discusses the current state of the AI and Data job market.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
             MEDIUM
@@ -476,13 +485,13 @@
   <section>
     <div class="section-header">
       <h2>Policy &amp; Regulation</h2>
-      <span class="count">4 stories</span>
+      <span class="count">5 stories</span>
     </div>
     <div class="news-grid">
       
       <article class="news-card">
-        <h3>Chicago&#39;s surveillance network</h3>
-        <p class="summary">The Download discusses Chicago&#39;s extensive surveillance network and its implications.</p>
+        <h3>Suspect discussed violence with ChatGPT</h3>
+        <p class="summary">The suspect in the Tumbler Ridge school shooting had conversations with ChatGPT involving descriptions of gun violence.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
             MEDIUM
@@ -492,8 +501,19 @@
       </article>
       
       <article class="news-card">
-        <h3>UK police AI bias and mitigation</h3>
-        <p class="summary">A UK police chief acknowledges AI bias in crime-fighting tech and commits to addressing it.</p>
+        <h3>Chicago&#39;s surveillance network</h3>
+        <p class="summary">The Download newsletter discusses Chicago&#39;s extensive surveillance network.</p>
+        <div class="card-footer">
+          <span class="badge badge-MEDIUM">
+            MEDIUM
+          </span>
+          
+        </div>
+      </article>
+      
+      <article class="news-card">
+        <h3>UK police AI bias and efficiency</h3>
+        <p class="summary">A UK police chief acknowledges AI bias in crime-fighting tech and vows to address it.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
             MEDIUM
@@ -557,7 +577,7 @@
       </article>
       
       <article class="news-card">
-        <h3>Blurring homes on Google Street View</h3>
+        <h3>Blur home on Google Street View</h3>
         <p class="summary">ZDNet explains why and how to blur your home on Google Street View.</p>
         <div class="card-footer">
           <span class="badge badge-MEDIUM">
@@ -599,7 +619,35 @@
 
 <footer class="footer">
   Generated by <strong>AI Daily</strong> · 2026-02-24 ·
-  Sources: Gmail newsletters + BigModel extraction
+  Powered by <strong>BigModel (GLM-4)</strong> + <strong>Claude Code</strong>
+
+  <div class="divider"></div>
+
+  <div style="color:#888; margin-bottom:0.5rem; letter-spacing:0.08em; text-transform:uppercase; font-size:0.7rem;">
+    News Sources
+  </div>
+  <div class="source-grid">
+    <span class="source-label">TechCrunch</span>
+    <span class="source-label">The Verge</span>
+    <span class="source-label">Wired</span>
+    <span class="source-label">Ars Technica</span>
+    <span class="source-label">VentureBeat</span>
+    <span class="source-label">MIT Technology Review</span>
+    <span class="source-label">The Guardian</span>
+    <span class="source-label">BBC Technology</span>
+    <span class="source-label">OpenAI Blog</span>
+    <span class="source-label">Google DeepMind</span>
+    <span class="source-label">Hugging Face</span>
+    <span class="source-label">AI News</span>
+    <span class="source-label">ZDNet</span>
+    <span class="source-label">NVIDIA Blog</span>
+    <span class="source-label">Towards Data Science</span>
+    <span class="source-label">Import AI</span>
+    <span class="source-label">Reuters</span>
+    <span class="source-label">AP News</span>
+    <span class="source-label">Anthropic Blog</span>
+    <span class="source-label">InfoQ AI</span>
+  </div>
 </footer>
 
 </body>
