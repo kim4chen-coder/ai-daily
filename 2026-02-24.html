@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Daily — 2026-02-24</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Georgia", serif;
+      background: #f5f0e8;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+
+    /* ── Masthead ── */
+    .masthead {
+      background: #1a1a1a;
+      color: #f5f0e8;
+      text-align: center;
+      padding: 2rem 1rem 1.5rem;
+      border-bottom: 4px solid #c9a84c;
+    }
+    .masthead h1 {
+      font-size: 3rem;
+      letter-spacing: 0.15em;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    .masthead .tagline {
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #b0a080;
+      margin-top: 0.3rem;
+    }
+    .masthead .meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid #444;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── Stats Bar ── */
+    .stats-bar {
+      background: #2c2c2c;
+      color: #ccc;
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* ── Section Header ── */
+    .section-header {
+      border-top: 3px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+      padding: 0.4rem 0;
+      margin: 2.5rem 0 1.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+    }
+    .section-header h2 {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+    }
+    .section-header .count {
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    /* ── News Grid ── */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ── News Card ── */
+    .news-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-top: 3px solid #1a1a1a;
+      padding: 1.2rem;
+      position: relative;
+    }
+    .news-card:hover {
+      border-top-color: #c9a84c;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .news-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 0.75rem;
+    }
+    .news-card .summary {
+      font-size: 0.88rem;
+      color: #333;
+      line-height: 1.6;
+    }
+    .news-card .card-footer {
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* ── Credibility Badges ── */
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      border-radius: 2px;
+      text-transform: uppercase;
+    }
+    .badge-HIGH   { background: #1a6b3a; color: #fff; }
+    .badge-MEDIUM { background: #c9a84c; color: #1a1a1a; }
+    .badge-LOW    { background: #e07b39; color: #fff; }
+    .badge-RUMOR  { background: #999; color: #fff; }
+
+    /* ── Sources ── */
+    .sources {
+      font-size: 0.72rem;
+      color: #666;
+    }
+    .sources a {
+      color: #555;
+      text-decoration: none;
+    }
+    .sources a:hover { text-decoration: underline; }
+
+    /* ── Excluded Section ── */
+    .excluded-section {
+      margin-top: 3rem;
+      padding: 1.5rem;
+      background: #f9f6f0;
+      border: 1px solid #ddd;
+      border-left: 4px solid #999;
+    }
+    .excluded-section h2 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #777;
+      margin-bottom: 1rem;
+    }
+    .excluded-item {
+      font-size: 0.82rem;
+      color: #888;
+      padding: 0.3rem 0;
+      border-bottom: 1px dashed #ddd;
+    }
+    .excluded-item:last-child { border-bottom: none; }
+
+    /* ── Footer ── */
+    .footer {
+      background: #1a1a1a;
+      color: #666;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 3rem;
+      font-size: 0.78rem;
+    }
+    .footer strong { color: #c9a84c; }
+  </style>
+</head>
+<body>
+
+<!-- Masthead -->
+<header class="masthead">
+  <h1>AI Daily</h1>
+  <div class="tagline">Verified · Multi-Source · Curated Every Day</div>
+  <div class="meta">
+    <span>2026-02-24</span>
+    <span>10 verified stories published</span>
+    <span>0 unverified items excluded</span>
+  </div>
+</header>
+
+<!-- Stats Bar -->
+<div class="stats-bar">
+  
+    <span class="badge badge-MEDIUM">MEDIUM</span> 10 &nbsp;&nbsp;
+  
+  &nbsp;·&nbsp; 10 total items extracted
+</div>
+
+<!-- Main Content -->
+<main class="container">
+
+  
+  <section>
+    <div class="section-header">
+      <h2>Industry News</h2>
+      <span class="count">4 stories</span>
+    </div>
+    <div class="news-grid">
+      
+      <article class="news-card">
+        <h3>NVIDIA Unveils Vera Rubin Platform</h3>
+        <p class="summary">NVIDIA announced its next-generation &#39;Vera Rubin&#39; AI platform featuring H300 GPUs, delivering major improvements in processing power and memory bandwidth for trillion-parameter models.</p>
+        <div class="card-footer">
+          <span class="badge badge-MEDIUM">
+            MEDIUM
+          </span>
+          
+        </div>
+      </article>
+      
+      <article class="news-card">
+        <h3>Amazon Plans $200B AI Capex</h3>
+        <p class="summary">Amazon announced a $200 billion capital expenditure plan for AWS and AI infrastructure, a near 50% jump year-on-year. The announcement initially triggered a $124 billion market cap drop.</p>
+        <div class="card-footer">
+          <span class="badge badge-MEDIUM">
+            MEDIUM
+          </span>
+          
+        </div>
+      </article>
+      
+      <article class="news-card">
+        <h3>Amazon Cuts 16,000 Jobs for AI</h3>
+        <p class="summary">Amazon announced layoffs affecting approximately 16,000 corporate employees, citing a strategic shift toward AI-driven automation and agentic workflows as the primary driver.</p>
+        <div class="card-footer">
+          <span class="badge badge-MEDIUM">
+            MEDIUM
+          </span>
+          
+        </div>
+      </article>
+      
+      <article class="news-card">
+        <h3>Big Tech AI Spend Hits $650B</h3>
+        <p class="summary">The four largest tech companies — Meta, Microsoft, Alphabet, and Amazon — are on track to collectively spend over $650 billion on AI investments in 2026, reshaping global infrastructure.</p>
+        <div class="card-footer">
+          <span class="badge badge-MEDIUM">
+            MEDIUM
+          </span>
+          
+        </div>
+      </article>
+      
+    </div>
+  </section>
+  
+  <section>
+    <div class="section-header">
+      <h2>Product Launch</h2>
+      <span class="count">3 stories</span>
+    </div>
+    <div class="news-grid">
+      
+      <article class="news-card">
+        <h3>Zhipu AI Releases GLM-5</h3>
+        <p class="summary">Zhipu AI launched GLM-5, a 128B open-source model optimized for coding and agentic tasks. It claims to surpass Anthropic&#39;s Claude Opus 4.5 on standard benchmarks.</p>
+        <div class="card-footer">
+          <span class="badge badge-MEDIUM">
+            MEDIUM
+          </span>
+          
+        </div>
+      </article>
+      
+      <article class="news-card">
+        <h3>OpenAI Launches GPT-5.3-Codex</h3>
+        <p class="summary">OpenAI released GPT-5.3-Codex, a coding-focused model running 25% faster than its predecessor and achieving state-of-the-art results on industry coding benchmarks.</p>
+        <div class="card-footer">
+          <span class="badge badge-MEDIUM">
+            MEDIUM
+          </span>
+          
+        </div>
+      </article>
+      
+      <article class="news-card">
+        <h3>Google Gemini 3.1 Pro Arrives</h3>
+        <p class="summary">Google DeepMind released Gemini 3.1 Pro with a 1M-token context window and full multimodal reasoning across text, images, audio, video, and code.</p>
+        <div class="card-footer">
+          <span class="badge badge-MEDIUM">
+            MEDIUM
+          </span>
+          
+        </div>
+      </article>
+      
+    </div>
+  </section>
+  
+  <section>
+    <div class="section-header">
+      <h2>Funding &amp; M&amp;A</h2>
+      <span class="count">2 stories</span>
+    </div>
+    <div class="news-grid">
+      
+      <article class="news-card">
+        <h3>NVIDIA Invests $2B in CoreWeave</h3>
+        <p class="summary">NVIDIA invested $2 billion in CoreWeave to deploy multiple generations of NVIDIA hardware across AI-optimized facilities totaling over 5 GW of capacity by 2030.</p>
+        <div class="card-footer">
+          <span class="badge badge-MEDIUM">
+            MEDIUM
+          </span>
+          
+        </div>
+      </article>
+      
+      <article class="news-card">
+        <h3>Cohere Hits $240M ARR, Eyes IPO</h3>
+        <p class="summary">Cohere exceeded its $200M annual recurring revenue target, reaching $240M ARR. The company is expanding its AI agent platform and European operations ahead of a planned IPO.</p>
+        <div class="card-footer">
+          <span class="badge badge-MEDIUM">
+            MEDIUM
+          </span>
+          
+        </div>
+      </article>
+      
+    </div>
+  </section>
+  
+  <section>
+    <div class="section-header">
+      <h2>AI Research</h2>
+      <span class="count">1 stories</span>
+    </div>
+    <div class="news-grid">
+      
+      <article class="news-card">
+        <h3>DeepSeek V4 &amp; R2 Imminent</h3>
+        <p class="summary">DeepSeek is expected to release V4 and R2 models soon, with context windows expanding from 128K to 1 million tokens, significantly challenging leading Western models.</p>
+        <div class="card-footer">
+          <span class="badge badge-MEDIUM">
+            MEDIUM
+          </span>
+          
+        </div>
+      </article>
+      
+    </div>
+  </section>
+  
+
+  <!-- Excluded Items -->
+  
+
+</main>
+
+<footer class="footer">
+  Generated by <strong>AI Daily</strong> · 2026-02-24 ·
+  Sources: Gmail newsletters + BigModel extraction
+</footer>
+
+</body>
+</html>
