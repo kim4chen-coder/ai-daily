@@ -5,544 +5,620 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Daily — 2026-02-24</title>
   <style>
-    /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      background: #f4f4f0;
-      color: #1a1a1a;
+      background: #f0f2f5;
+      color: #1a1a2e;
       font-size: 16px;
-      line-height: 1.65;
+      line-height: 1.6;
     }
 
     /* ── Top Bar ── */
     .topbar {
-      background: #1b2a3b;
-      padding: 0.5rem 1.5rem;
+      background: #0f1b2d;
+      padding: 0.5rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.75rem;
-      color: #8da0b3;
+      font-size: 0.72rem;
+      color: #6b8cae;
       letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
-    .topbar span { text-transform: uppercase; }
 
     /* ── Masthead ── */
     .masthead {
-      background: #fff;
-      border-bottom: 3px solid #1b2a3b;
+      background: linear-gradient(135deg, #0f1b2d 0%, #1a3a5c 100%);
       text-align: center;
-      padding: 2.5rem 1rem 2rem;
+      padding: 3rem 1rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .masthead::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #2e86de, #00d2ff, #2e86de);
     }
     .masthead .brand {
-      font-size: 2.8rem;
-      font-weight: 800;
+      font-size: 3rem;
+      font-weight: 900;
       letter-spacing: -0.02em;
-      color: #1b2a3b;
+      color: #fff;
       text-transform: uppercase;
     }
     .masthead .brand span { color: #2e86de; }
     .masthead .tagline {
-      font-size: 0.88rem;
-      color: #666;
-      margin-top: 0.4rem;
-      letter-spacing: 0.04em;
-    }
-    .masthead .edition-info {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-top: 1.2rem;
-      font-size: 0.78rem;
-      color: #888;
+      font-size: 0.9rem;
+      color: #8da8c4;
+      margin-top: 0.5rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.07em;
     }
-    .masthead .edition-info strong { color: #1b2a3b; }
+    .masthead .edition-bar {
+      display: inline-flex;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 0.6rem 1.5rem;
+      border-radius: 30px;
+      font-size: 0.78rem;
+      color: #8da8c4;
+    }
+    .masthead .edition-bar strong { color: #fff; }
 
-    /* ── Main Layout ── */
+    /* ── Layout ── */
     .wrapper {
-      max-width: 780px;
+      max-width: 760px;
       margin: 0 auto;
-      padding: 2rem 1.5rem 3rem;
+      padding: 2rem 1.25rem 3rem;
     }
 
-    /* ── Category Label ── */
-    .category-label {
+    /* ── Category Header ── */
+    .cat-header {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.8rem;
       margin: 2.5rem 0 1rem;
     }
-    .category-label .tag {
+    .cat-header .cat-pill {
       background: #2e86de;
       color: #fff;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 0.25rem 0.7rem;
-      border-radius: 3px;
+      padding: 0.3rem 0.85rem;
+      border-radius: 20px;
+      white-space: nowrap;
     }
-    .category-label .line {
-      flex: 1;
-      height: 1px;
-      background: #ddd;
-    }
+    .cat-header .cat-line { flex: 1; height: 1px; background: #d0d8e4; }
 
     /* ── Story Card ── */
     .story {
       background: #fff;
-      border-radius: 4px;
-      border: 1px solid #e8e8e8;
-      border-left: 4px solid #2e86de;
-      padding: 1.5rem 1.75rem;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
       margin-bottom: 1.25rem;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
     }
-    .story:hover {
-      border-left-color: #1b2a3b;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    .story:hover { box-shadow: 0 6px 24px rgba(46,134,222,0.12); }
+
+    /* ── Story Top Strip ── */
+    .story-strip {
+      height: 4px;
+      background: linear-gradient(90deg, #2e86de, #00c6ff);
     }
 
-    /* ── Story Headline ── */
-    .story h2 {
-      font-size: 1.15rem;
+    .story-body { padding: 1.4rem 1.6rem 1.2rem; }
+
+    /* ── Hook — the 3-second scan line ── */
+    .hook {
+      font-size: 0.82rem;
       font-weight: 700;
-      line-height: 1.35;
-      margin-bottom: 0.75rem;
-      color: #1b2a3b;
+      color: #2e86de;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
-    .story h2 a {
-      color: #1b2a3b;
-      text-decoration: none;
+    .hook::before {
+      content: '▶';
+      font-size: 0.55rem;
+      color: #2e86de;
     }
-    .story h2 a:hover { color: #2e86de; text-decoration: underline; }
+
+    /* ── Headline ── */
+    .story h2 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      line-height: 1.3;
+      color: #0f1b2d;
+      margin-bottom: 0.85rem;
+    }
+    .story h2 a { color: #0f1b2d; text-decoration: none; }
+    .story h2 a:hover { color: #2e86de; }
 
     /* ── Summary ── */
-    .story .summary {
-      font-size: 0.93rem;
-      color: #333;
+    .summary {
+      font-size: 0.9rem;
+      color: #4a5568;
       line-height: 1.75;
       margin-bottom: 1rem;
     }
 
     /* ── Why It Matters ── */
-    .story .why {
-      background: #f0f6ff;
+    .why {
+      background: #eef6ff;
       border-left: 3px solid #2e86de;
-      padding: 0.6rem 0.9rem;
-      font-size: 0.85rem;
-      color: #1b2a3b;
-      border-radius: 0 3px 3px 0;
+      padding: 0.65rem 1rem;
+      border-radius: 0 6px 6px 0;
       margin-bottom: 1rem;
     }
-    .story .why strong {
+    .why .why-label {
+      font-size: 0.62rem;
+      font-weight: 800;
       text-transform: uppercase;
-      font-size: 0.7rem;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       color: #2e86de;
-      display: block;
       margin-bottom: 0.2rem;
+    }
+    .why p {
+      font-size: 0.85rem;
+      color: #1a3a5c;
+      font-weight: 500;
+      line-height: 1.55;
     }
 
     /* ── Story Footer ── */
-    .story-footer {
+    .story-foot {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 0.75rem;
-      border-top: 1px solid #f0f0f0;
-      font-size: 0.75rem;
-      color: #999;
+      padding: 0.75rem 1.6rem;
+      border-top: 1px solid #f0f4f8;
+      background: #fafbfc;
     }
-    .story-footer a {
+    .story-foot .source-name {
+      font-size: 0.72rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .story-foot a {
+      font-size: 0.78rem;
+      font-weight: 700;
       color: #2e86de;
       text-decoration: none;
-      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
     }
-    .story-footer a:hover { text-decoration: underline; }
-
-    /* ── Divider ── */
-    .divider {
-      border: none;
-      border-top: 1px solid #e0e0e0;
-      margin: 2.5rem 0;
-    }
+    .story-foot a:hover { text-decoration: underline; }
 
     /* ── Footer ── */
-    .footer {
-      background: #1b2a3b;
-      color: #8da0b3;
+    .site-footer {
+      background: #0f1b2d;
+      color: #6b8cae;
       text-align: center;
       padding: 2.5rem 1.5rem;
       font-size: 0.78rem;
     }
-    .footer strong { color: #fff; }
-    .footer .sources-title {
-      font-size: 0.68rem;
+    .site-footer strong { color: #fff; }
+    .site-footer .sources-label {
+      font-size: 0.65rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: #5a7a96;
-      margin: 1.5rem 0 0.8rem;
+      color: #3d5a78;
+      margin: 1.5rem 0 0.75rem;
     }
-    .footer .source-pills {
+    .site-footer .pills {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 0.4rem 0.6rem;
+      gap: 0.4rem 0.5rem;
       max-width: 700px;
       margin: 0 auto;
     }
-    .footer .source-pills a {
-      color: #8da0b3;
-      font-size: 0.7rem;
+    .site-footer .pills a {
+      color: #6b8cae;
+      font-size: 0.68rem;
       text-decoration: none;
-      border: 1px solid #2e4a62;
-      padding: 0.2rem 0.55rem;
+      border: 1px solid #1e3a5a;
+      padding: 0.2rem 0.6rem;
       border-radius: 20px;
-      transition: all 0.15s;
     }
-    .footer .source-pills a:hover {
-      background: #2e86de;
-      color: #fff;
-      border-color: #2e86de;
-    }
+    .site-footer .pills a:hover { background: #2e86de; color: #fff; border-color: #2e86de; }
   </style>
 </head>
 <body>
 
-<!-- Top Bar -->
 <div class="topbar">
   <span>2026-02-24</span>
-  <span>10 Stories · AI &amp; Technology</span>
+  <span>10 stories · AI &amp; Technology</span>
   <span>Powered by BigModel + Claude Code</span>
 </div>
 
-<!-- Masthead -->
 <header class="masthead">
   <div class="brand">AI <span>Daily</span></div>
-  <div class="tagline">Facts first. Context always. Every morning.</div>
-  <div class="edition-info">
-    <span>Sources checked: <strong>20</strong></span>
-    <span>Stories published: <strong>10</strong></span>
+  <div class="tagline">Facts first · Context always · Every morning</div>
+  <div class="edition-bar">
+    <span>Sources: <strong>20</strong></span>
+    <span>Stories: <strong>10</strong></span>
     <span>Edition: <strong>2026-02-24</strong></span>
   </div>
 </header>
 
-<!-- Stories -->
 <main class="wrapper">
 
   
-
-  <div class="category-label">
-    <span class="tag">Policy &amp; Regulation</span>
-    <span class="line"></span>
+  <div class="cat-header">
+    <span class="cat-pill">Policy &amp; Regulation</span>
+    <span class="cat-line"></span>
   </div>
 
   
   <article class="story">
+    <div class="story-strip"></div>
+    <div class="story-body">
 
-    <h2>
       
-      <a href="https://www.theverge.com/ai-artificial-intelligence/883243/anthropic-claude-deepseek-china-ai-distillation" target="_blank" rel="noopener">Anthropic accuses Chinese firms of AI misuse</a>
+      <div class="hook">Anthropic claims Chinese firms misused Claude AI model</div>
       
-    </h2>
 
-    <p class="summary">Anthropic claims that DeepSeek and two other Chinese AI companies misused its Claude AI model, creating 24,000 fraudulent accounts and over 16 million exchanges with Claude.</p>
+      <h2>
+        
+        <a href="https://www.theverge.com/ai-artificial-intelligence/883243/anthropic-claude-deepseek-china-ai-distillation" target="_blank" rel="noopener">Anthropic Accuses Chinese Firms of AI Misuse</a>
+        
+      </h2>
 
-    
-    <div class="why">
-      <strong>Why it matters</strong>
-      This highlights concerns over the misuse of AI technology and the importance of intellectual property protection.
+      <p class="summary">Anthropic accuses DeepSeek and two other Chinese AI companies of misusing its Claude AI model to improve their own products. The misuse involved 24,000 fraudulent accounts and over 16 million exchanges with Claude. This incident highlights concerns over intellectual property theft and misuse of AI technology.</p>
+
+      
+      <div class="why">
+        <div class="why-label">Why it matters</div>
+        <p>The incident underscores the risks of intellectual property theft and the need for robust safeguards in AI technology.</p>
+      </div>
+      
+
     </div>
-    
-
-    <div class="story-footer">
-      <span>Your Claude Pro subscription was canceled</span>
+    <div class="story-foot">
+      <span class="source-name">Anthropic accuses DeepSeek and other Chinese firms of using Claude to train their AI</span>
       
       <a href="https://www.theverge.com/ai-artificial-intelligence/883243/anthropic-claude-deepseek-china-ai-distillation" target="_blank" rel="noopener">Read full story →</a>
       
     </div>
-
   </article>
   
   <article class="story">
+    <div class="story-strip"></div>
+    <div class="story-body">
 
-    <h2>
       
-      <a href="https://www.technologyreview.com/2026/02/23/1133495/the-download-chicagos-surveillance-network-and-building-better-bras/" target="_blank" rel="noopener">Chicago&#39;s surveillance network</a>
+      <div class="hook">Chicago has one of the largest surveillance networks in the US</div>
       
-    </h2>
 
-    <p class="summary">The Download newsletter from MIT Technology Review discusses Chicago&#39;s extensive surveillance network and its implications.</p>
+      <h2>
+        
+        <a href="https://www.technologyreview.com/2026/02/23/1133495/the-download-chicagos-surveillance-network-and-building-better-bras/" target="_blank" rel="noopener">Chicago&#39;s Surveillance Network</a>
+        
+      </h2>
 
-    
-    <div class="why">
-      <strong>Why it matters</strong>
-      This issue is relevant for those interested in privacy and surveillance technology.
+      <p class="summary">The Download newsletter discusses Chicago&#39;s extensive surveillance network, highlighting the challenges of balancing security and privacy in urban settings. This article explores the role of AI in modern surveillance systems.</p>
+
+      
+      <div class="why">
+        <div class="why-label">Why it matters</div>
+        <p>The article raises concerns about the use of AI in surveillance and the implications for privacy.</p>
+      </div>
+      
+
     </div>
-    
-
-    <div class="story-footer">
-      <span>Your Claude Pro subscription was canceled</span>
+    <div class="story-foot">
+      <span class="source-name">Anthropic accuses DeepSeek and other Chinese firms of using Claude to train their AI</span>
       
       <a href="https://www.technologyreview.com/2026/02/23/1133495/the-download-chicagos-surveillance-network-and-building-better-bras/" target="_blank" rel="noopener">Read full story →</a>
       
     </div>
-
   </article>
   
   <article class="story">
+    <div class="story-strip"></div>
+    <div class="story-body">
 
-    <h2>
       
-      <a href="https://www.theguardian.com/technology/2026/feb/24/police-ai-chief-admits-crime-fighting-tech-will-have-bias-but-vows-to-tackle-it" target="_blank" rel="noopener">UK police AI chief on bias</a>
+      <div class="hook">UK police AI chief admits bias in crime-fighting tech</div>
       
-    </h2>
 
-    <p class="summary">The Guardian reports on the UK police AI chief&#39;s admission of bias in crime-fighting tech and the efforts to combat it.</p>
+      <h2>
+        
+        <a href="https://www.theguardian.com/technology/2026/feb/24/police-ai-chief-admits-crime-fighting-tech-will-have-bias-but-vows-to-tackle-it" target="_blank" rel="noopener">UK Police AI Bias</a>
+        
+      </h2>
 
-    
-    <div class="why">
-      <strong>Why it matters</strong>
-      This highlights the importance of addressing bias in AI technology used by law enforcement.
+      <p class="summary">A UK police chief acknowledges the bias in AI technology used for crime fighting and vows to address the issue. This article discusses the challenges of using AI in law enforcement and the need for ethical considerations.</p>
+
+      
+      <div class="why">
+        <div class="why-label">Why it matters</div>
+        <p>The article highlights the importance of addressing bias in AI technology used in critical applications like law enforcement.</p>
+      </div>
+      
+
     </div>
-    
-
-    <div class="story-footer">
-      <span>Your Claude Pro subscription was canceled</span>
+    <div class="story-foot">
+      <span class="source-name">Anthropic accuses DeepSeek and other Chinese firms of using Claude to train their AI</span>
       
       <a href="https://www.theguardian.com/technology/2026/feb/24/police-ai-chief-admits-crime-fighting-tech-will-have-bias-but-vows-to-tackle-it" target="_blank" rel="noopener">Read full story →</a>
       
     </div>
-
   </article>
   
   <article class="story">
+    <div class="story-strip"></div>
+    <div class="story-body">
 
-    <h2>
       
-      <a href="https://www.theguardian.com/media/2026/feb/24/nine-entertainment-australia-news-bargaining-incentive-ai-threat" target="_blank" rel="noopener">Nine calls for tech company compensation</a>
+      <div class="hook">Nine Entertainment calls for tech companies to compensate media</div>
       
-    </h2>
 
-    <p class="summary">Nine Entertainment CEO calls on the Australian government to force tech companies to compensate media due to the AI threat.</p>
+      <h2>
+        
+        <a href="https://www.theguardian.com/media/2026/feb/24/nine-entertainment-australia-news-bargaining-incentive-ai-threat" target="_blank" rel="noopener">Tech Companies and Media Compensation</a>
+        
+      </h2>
 
-    
-    <div class="why">
-      <strong>Why it matters</strong>
-      This reflects the ongoing debate over the impact of AI on media industries and the need for compensation.
+      <p class="summary">Nine Entertainment CEO calls on the Australian government to force tech companies to compensate media due to the impact of AI on revenue models. This article discusses the challenges faced by traditional media in the age of AI.</p>
+
+      
+      <div class="why">
+        <div class="why-label">Why it matters</div>
+        <p>The article highlights the economic impact of AI on the media industry and the need for policy changes.</p>
+      </div>
+      
+
     </div>
-    
-
-    <div class="story-footer">
-      <span>Your Claude Pro subscription was canceled</span>
+    <div class="story-foot">
+      <span class="source-name">Anthropic accuses DeepSeek and other Chinese firms of using Claude to train their AI</span>
       
       <a href="https://www.theguardian.com/media/2026/feb/24/nine-entertainment-australia-news-bargaining-incentive-ai-threat" target="_blank" rel="noopener">Read full story →</a>
       
     </div>
-
   </article>
   
 
   
-
-  <div class="category-label">
-    <span class="tag">AI Research</span>
-    <span class="line"></span>
+  <div class="cat-header">
+    <span class="cat-pill">AI Research</span>
+    <span class="cat-line"></span>
   </div>
 
   
   <article class="story">
+    <div class="story-strip"></div>
+    <div class="story-body">
 
-    <h2>
       
-      <a href="https://www.theverge.com/ai-artificial-intelligence/882956/ai-deepfake-detection-labels-c2pa-instagram-youtube" target="_blank" rel="noopener">Big Tech&#39;s stance on AI slop</a>
+      <div class="hook">ChatGPT used in Tumbler Ridge school shooting planning</div>
       
-    </h2>
 
-    <p class="summary">A discussion on whether Big Tech is genuinely concerned about combating AI-generated misinformation and the challenges in maintaining authenticity online.</p>
+      <h2>
+        
+        <a href="https://www.theverge.com/ai-artificial-intelligence/882814/tumbler-ridge-school-shooting-chatgpt" target="_blank" rel="noopener">Suspect Used ChatGPT in School Shooting</a>
+        
+      </h2>
 
-    
-    <div class="why">
-      <strong>Why it matters</strong>
-      This issue affects the credibility of AI-generated content and its impact on society.
+      <p class="summary">The suspect in the Tumbler Ridge school shooting had conversations with ChatGPT involving descriptions of gun violence, raising concerns about the potential misuse of AI chatbots. This incident highlights the need for better content moderation in AI systems.</p>
+
+      
+      <div class="why">
+        <div class="why-label">Why it matters</div>
+        <p>The case underscores the importance of content moderation and ethical considerations in AI development.</p>
+      </div>
+      
+
     </div>
-    
-
-    <div class="story-footer">
-      <span>Your Claude Pro subscription was canceled</span>
-      
-      <a href="https://www.theverge.com/ai-artificial-intelligence/882956/ai-deepfake-detection-labels-c2pa-instagram-youtube" target="_blank" rel="noopener">Read full story →</a>
-      
-    </div>
-
-  </article>
-  
-  <article class="story">
-
-    <h2>
-      
-      <a href="https://www.theverge.com/ai-artificial-intelligence/882814/tumbler-ridge-school-shooting-chatgpt" target="_blank" rel="noopener">Suspect discussed violence with ChatGPT</a>
-      
-    </h2>
-
-    <p class="summary">The suspect in the Tumbler Ridge school shooting had conversations with ChatGPT involving descriptions of gun violence, raising concerns among OpenAI employees.</p>
-
-    
-    <div class="why">
-      <strong>Why it matters</strong>
-      This incident underscores the ethical and safety implications of AI chatbots.
-    </div>
-    
-
-    <div class="story-footer">
-      <span>Your Claude Pro subscription was canceled</span>
+    <div class="story-foot">
+      <span class="source-name">Anthropic accuses DeepSeek and other Chinese firms of using Claude to train their AI</span>
       
       <a href="https://www.theverge.com/ai-artificial-intelligence/882814/tumbler-ridge-school-shooting-chatgpt" target="_blank" rel="noopener">Read full story →</a>
       
     </div>
-
   </article>
   
   <article class="story">
+    <div class="story-strip"></div>
+    <div class="story-body">
 
-    <h2>
       
-      <a href="https://www.technologyreview.com/2026/02/23/1133522/peptides-are-everywhere-heres-what-you-need-to-know/" target="_blank" rel="noopener">Peptides in alternative medicine</a>
+      <div class="hook">AI researchers resign, AI agents hire humans</div>
       
-    </h2>
 
-    <p class="summary">MIT Technology Review explores the use of peptides in alternative medicine, including their potential benefits and concerns.</p>
+      <h2>
+        
+        <a href="https://www.wired.com/story/uncanny-valley-podcast-ai-researcher-resignations-bots-hiring-humans-evie-magazines-party/" target="_blank" rel="noopener">AI Researchers Resign, Bots Hire Humans</a>
+        
+      </h2>
 
-    
-    <div class="why">
-      <strong>Why it matters</strong>
-      This topic is relevant for those interested in the intersection of technology and health.
+      <p class="summary">The Uncanny Valley podcast discusses AI researchers resigning from their companies and AI agents hiring humans. This episode reflects the evolving dynamics between humans and AI in the workplace.</p>
+
+      
+      <div class="why">
+        <div class="why-label">Why it matters</div>
+        <p>The discussion highlights the changing relationship between humans and AI in professional settings.</p>
+      </div>
+      
+
     </div>
-    
-
-    <div class="story-footer">
-      <span>Your Claude Pro subscription was canceled</span>
-      
-      <a href="https://www.technologyreview.com/2026/02/23/1133522/peptides-are-everywhere-heres-what-you-need-to-know/" target="_blank" rel="noopener">Read full story →</a>
-      
-    </div>
-
-  </article>
-  
-  <article class="story">
-
-    <h2>
-      
-      <a href="https://www.technologyreview.com/2026/02/23/1133508/the-human-work-behind-humanoid-robots-is-being-hidden/" target="_blank" rel="noopener">Humanoid robots and hidden human work</a>
-      
-    </h2>
-
-    <p class="summary">MIT Technology Review discusses the lack of recognition for the human work behind humanoid robots and the rise of physical AI.</p>
-
-    
-    <div class="why">
-      <strong>Why it matters</strong>
-      This highlights the challenges and ethical considerations in the development of humanoid robots.
-    </div>
-    
-
-    <div class="story-footer">
-      <span>Your Claude Pro subscription was canceled</span>
-      
-      <a href="https://www.technologyreview.com/2026/02/23/1133508/the-human-work-behind-humanoid-robots-is-being-hidden/" target="_blank" rel="noopener">Read full story →</a>
-      
-    </div>
-
-  </article>
-  
-
-  
-
-  <div class="category-label">
-    <span class="tag">Product Launch</span>
-    <span class="line"></span>
-  </div>
-
-  
-  <article class="story">
-
-    <h2>
-      
-      <a href="https://www.theverge.com/tech/882921/samsung-is-adding-perplexity-to-galaxy-ai" target="_blank" rel="noopener">Samsung integrates Perplexity into Galaxy AI</a>
-      
-    </h2>
-
-    <p class="summary">Samsung&#39;s Galaxy S26 users can now use Perplexity, an AI agent, by saying &#39;hey, Plex,&#39; as part of the company&#39;s multi-agent ecosystem.</p>
-
-    
-    <div class="why">
-      <strong>Why it matters</strong>
-      This integration reflects the growing trend of incorporating multiple AI agents into consumer devices.
-    </div>
-    
-
-    <div class="story-footer">
-      <span>Your Claude Pro subscription was canceled</span>
-      
-      <a href="https://www.theverge.com/tech/882921/samsung-is-adding-perplexity-to-galaxy-ai" target="_blank" rel="noopener">Read full story →</a>
-      
-    </div>
-
-  </article>
-  
-
-  
-
-  <div class="category-label">
-    <span class="tag">Industry News</span>
-    <span class="line"></span>
-  </div>
-
-  
-  <article class="story">
-
-    <h2>
-      
-      <a href="https://www.wired.com/story/uncanny-valley-podcast-ai-researcher-resignations-bots-hiring-humans-evie-magazines-party/" target="_blank" rel="noopener">AI researchers resign, bots hire humans</a>
-      
-    </h2>
-
-    <p class="summary">The &#39;Uncanny Valley&#39; podcast discusses AI researchers resigning from their companies and AI agents hiring humans for various tasks.</p>
-
-    
-    <div class="why">
-      <strong>Why it matters</strong>
-      This reflects the evolving dynamics of the AI industry and the potential for AI to take on more complex roles.
-    </div>
-    
-
-    <div class="story-footer">
-      <span>Your Claude Pro subscription was canceled</span>
+    <div class="story-foot">
+      <span class="source-name">Anthropic accuses DeepSeek and other Chinese firms of using Claude to train their AI</span>
       
       <a href="https://www.wired.com/story/uncanny-valley-podcast-ai-researcher-resignations-bots-hiring-humans-evie-magazines-party/" target="_blank" rel="noopener">Read full story →</a>
       
     </div>
+  </article>
+  
+  <article class="story">
+    <div class="story-strip"></div>
+    <div class="story-body">
 
+      
+      <div class="hook">Peptides become the latest alternative medicine trend</div>
+      
+
+      <h2>
+        
+        <a href="https://www.technologyreview.com/2026/02/23/1133522/peptides-are-everywhere-heres-what-you-need-to-know/" target="_blank" rel="noopener">Peptides in Alternative Medicine</a>
+        
+      </h2>
+
+      <p class="summary">MIT Technology Review explores the rise of peptides as a wellness trend, discussing their potential benefits and the complexities of alternative medicine. This article highlights the intersection of AI and health technology.</p>
+
+      
+      <div class="why">
+        <div class="why-label">Why it matters</div>
+        <p>The article showcases how AI can be used to understand and promote alternative medicine trends.</p>
+      </div>
+      
+
+    </div>
+    <div class="story-foot">
+      <span class="source-name">Anthropic accuses DeepSeek and other Chinese firms of using Claude to train their AI</span>
+      
+      <a href="https://www.technologyreview.com/2026/02/23/1133522/peptides-are-everywhere-heres-what-you-need-to-know/" target="_blank" rel="noopener">Read full story →</a>
+      
+    </div>
+  </article>
+  
+  <article class="story">
+    <div class="story-strip"></div>
+    <div class="story-body">
+
+      
+      <div class="hook">Nvidia&#39;s Jensen Huang on physical AI era</div>
+      
+
+      <h2>
+        
+        <a href="https://www.technologyreview.com/2026/02/23/1133508/the-human-work-behind-humanoid-robots-is-being-hidden/" target="_blank" rel="noopener">Humanoid Robots and Hidden Human Work</a>
+        
+      </h2>
+
+      <p class="summary">MIT Technology Review discusses the rise of physical AI and the hidden human work behind humanoid robots. This article explores the implications of AI in the physical world and the challenges of transparency in AI development.</p>
+
+      
+      <div class="why">
+        <div class="why-label">Why it matters</div>
+        <p>The article raises awareness about the ethical and societal implications of AI technology.</p>
+      </div>
+      
+
+    </div>
+    <div class="story-foot">
+      <span class="source-name">Anthropic accuses DeepSeek and other Chinese firms of using Claude to train their AI</span>
+      
+      <a href="https://www.technologyreview.com/2026/02/23/1133508/the-human-work-behind-humanoid-robots-is-being-hidden/" target="_blank" rel="noopener">Read full story →</a>
+      
+    </div>
+  </article>
+  
+
+  
+  <div class="cat-header">
+    <span class="cat-pill">Industry News</span>
+    <span class="cat-line"></span>
+  </div>
+
+  
+  <article class="story">
+    <div class="story-strip"></div>
+    <div class="story-body">
+
+      
+      <div class="hook">Instagram&#39;s Adam Mosseri warns about AI authenticity issues</div>
+      
+
+      <h2>
+        
+        <a href="https://www.theverge.com/ai-artificial-intelligence/882956/ai-deepfake-detection-labels-c2pa-instagram-youtube" target="_blank" rel="noopener">Instagram Head on AI Slop</a>
+        
+      </h2>
+
+      <p class="summary">Instagram head Adam Mosseri expressed concerns about the impact of AI on authenticity, stating that AI is making it easier for anyone to create fake content. This reflects broader concerns about the impact of AI on content creation and social media platforms.</p>
+
+      
+      <div class="why">
+        <div class="why-label">Why it matters</div>
+        <p>The statement highlights the challenges of maintaining authenticity in the age of AI and the need for new approaches to content verification.</p>
+      </div>
+      
+
+    </div>
+    <div class="story-foot">
+      <span class="source-name">Anthropic accuses DeepSeek and other Chinese firms of using Claude to train their AI</span>
+      
+      <a href="https://www.theverge.com/ai-artificial-intelligence/882956/ai-deepfake-detection-labels-c2pa-instagram-youtube" target="_blank" rel="noopener">Read full story →</a>
+      
+    </div>
+  </article>
+  
+
+  
+  <div class="cat-header">
+    <span class="cat-pill">Product Launch</span>
+    <span class="cat-line"></span>
+  </div>
+
+  
+  <article class="story">
+    <div class="story-strip"></div>
+    <div class="story-body">
+
+      
+      <div class="hook">Samsung adds Perplexity to Galaxy AI</div>
+      
+
+      <h2>
+        
+        <a href="https://www.theverge.com/tech/882921/samsung-is-adding-perplexity-to-galaxy-ai" target="_blank" rel="noopener">Samsung Integrates Perplexity AI</a>
+        
+      </h2>
+
+      <p class="summary">Samsung is integrating Perplexity AI into its Galaxy S26, allowing users to interact with the AI agent using voice commands. This move reflects the growing trend of incorporating multiple AI agents into consumer devices for various tasks.</p>
+
+      
+      <div class="why">
+        <div class="why-label">Why it matters</div>
+        <p>The integration of Perplexity into Samsung&#39;s devices showcases the increasing role of AI in consumer electronics.</p>
+      </div>
+      
+
+    </div>
+    <div class="story-foot">
+      <span class="source-name">Anthropic accuses DeepSeek and other Chinese firms of using Claude to train their AI</span>
+      
+      <a href="https://www.theverge.com/tech/882921/samsung-is-adding-perplexity-to-galaxy-ai" target="_blank" rel="noopener">Read full story →</a>
+      
+    </div>
   </article>
   
 
   
 
-  <hr class="divider">
-
 </main>
 
-<!-- Footer -->
-<footer class="footer">
+<footer class="site-footer">
   <div>Generated by <strong>AI Daily</strong> · 2026-02-24</div>
-  <div>Powered by <strong>BigModel (GLM-4-Flash)</strong> + <strong>Claude Code</strong></div>
-
-  <div class="sources-title">Sources Monitored</div>
-  <div class="source-pills">
+  <div style="margin-top:0.3rem;">Powered by <strong>BigModel (GLM-4-Flash)</strong> + <strong>Claude Code</strong></div>
+  <div class="sources-label">Sources Monitored</div>
+  <div class="pills">
     
     <a href="https://techcrunch.com/tag/artificial-intelligence/feed/" target="_blank" rel="noopener">TechCrunch AI</a>
     
