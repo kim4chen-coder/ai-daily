@@ -6,22 +6,43 @@
   <title>AI Daily — 2026-02-24</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,400;1,14..32,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0B1220;
-      --card:      #111B2F;
-      --border:    #1F2A44;
-      --white:     #FFFFFF;
-      --body:      #D7DBEA;
-      --muted:     #AAB0C0;
-      --accent:    #2FE4FF;
-      --accent-bg: rgba(47,228,255,0.07);
-      --surface:   #0D1627;
-      --raised:    #0F182B;
-      --ink:       #06101A;
+      /* Base */
+      --bg:          #FFFFFF;
+      --card:        #FAFAFA;
+      --card-alt:    #F8F6FF;
+      --border:      #E4DFF5;
+      --border-md:   #C8C0E0;
+
+      /* Typography */
+      --ink:         #1A1629;   /* deep purple-black — headlines */
+      --body:        #3A3550;   /* dark purple-gray — body text */
+      --muted:       #8880A4;   /* silver-purple — labels, dates */
+      --faint:       #C4BECF;   /* very light — watermarks */
+
+      /* Accent palette */
+      --gold:        #B8922A;   /* editorial gold */
+      --gold-mid:    #D4AB44;
+      --gold-light:  #FDF4DC;
+
+      --purple:      #6B30D4;   /* vibrant purple */
+      --purple-mid:  #8B54E8;
+      --purple-light:#F0EBFF;
+
+      --pink:        #C8206A;   /* editorial pink/rose */
+      --pink-mid:    #E04080;
+      --pink-light:  #FFF0F6;
+
+      --silver:      #B0AABF;   /* cool silver */
+      --silver-light:#F2F0F7;
+
+      /* Surfaces */
+      --surface:     #F7F5FF;
+      --footer-bg:   #1A1629;
     }
 
     body {
@@ -31,34 +52,33 @@
       font-size: 15px;
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     /* ════════════════════════════════════════
        TICKER
     ════════════════════════════════════════ */
     .ticker {
-      background: var(--accent);
-      color: var(--ink);
+      background: linear-gradient(90deg, var(--purple) 0%, var(--pink) 100%);
+      color: #fff;
       font-size: 0.62rem;
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       text-align: center;
-      padding: 0.32rem 1rem;
+      padding: 0.35rem 1rem;
     }
 
     /* ════════════════════════════════════════
        TOP BAR
     ════════════════════════════════════════ */
     .topbar {
-      background: var(--ink);
+      background: var(--silver-light);
       border-bottom: 1px solid var(--border);
       padding: 0.45rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.65rem;
+      font-size: 0.63rem;
       color: var(--muted);
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -68,54 +88,51 @@
        MASTHEAD
     ════════════════════════════════════════ */
     .masthead {
-      background: var(--card);
+      background: var(--bg);
       border-bottom: 1px solid var(--border);
       text-align: center;
-      padding: 2.8rem 1rem 2.2rem;
+      padding: 3rem 1rem 2.2rem;
       position: relative;
     }
+
+    /* gold rule below masthead */
     .masthead::after {
       content: '';
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent 0%, var(--accent) 35%, var(--accent) 65%, transparent 100%);
+      height: 3px;
+      background: linear-gradient(90deg, transparent 0%, var(--gold-mid) 30%, var(--gold) 50%, var(--gold-mid) 70%, transparent 100%);
     }
 
     .brand {
       font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-      font-size: 3.8rem;
+      font-size: 4rem;
       font-weight: 800;
-      color: var(--white);
-      letter-spacing: 0.02em;
+      color: var(--ink);
+      letter-spacing: 0.015em;
       line-height: 1;
     }
-    .brand .accent { color: var(--accent); }
+    .brand .purple { color: var(--purple); }
 
     .brand-ornament {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.75rem;
-      margin: 1rem auto 0.75rem;
+      margin: 1rem auto 0.8rem;
     }
-    .brand-ornament .line {
-      width: 48px;
-      height: 1px;
-      background: var(--border);
-    }
+    .brand-ornament .line { width: 52px; height: 1px; background: var(--border-md); }
     .brand-ornament .diamond {
-      width: 5px;
-      height: 5px;
-      background: var(--accent);
+      width: 6px; height: 6px;
+      background: var(--gold);
       transform: rotate(45deg);
       flex-shrink: 0;
     }
 
     .tagline {
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       color: var(--muted);
-      letter-spacing: 0.22em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       font-weight: 500;
     }
@@ -123,22 +140,22 @@
     .edition-meta {
       display: inline-flex;
       margin-top: 1.6rem;
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-md);
       border-radius: 4px;
       overflow: hidden;
-      background: var(--bg);
     }
     .meta-cell {
       padding: 0.5rem 1.4rem;
       font-size: 0.68rem;
       color: var(--muted);
       border-right: 1px solid var(--border);
+      background: var(--silver-light);
     }
     .meta-cell:last-child { border-right: none; }
-    .meta-cell strong { color: var(--accent); font-weight: 700; }
+    .meta-cell strong { color: var(--purple); font-weight: 700; }
 
     /* ════════════════════════════════════════
-       LAYOUT WRAPPER
+       LAYOUT
     ════════════════════════════════════════ */
     .wrapper {
       max-width: 820px;
@@ -155,18 +172,27 @@
       gap: 0.85rem;
       margin: 2.75rem 0 1.1rem;
       padding-bottom: 0.65rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 2px solid var(--gold-light);
+      position: relative;
+    }
+    /* gold accent on left edge */
+    .section-hd::before {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 48px; height: 2px;
+      background: var(--gold);
     }
     .section-label {
       font-size: 0.6rem;
       font-weight: 800;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--purple);
     }
     .section-count {
       font-size: 0.58rem;
-      color: var(--border);
+      color: var(--faint);
       letter-spacing: 0.06em;
       margin-left: auto;
     }
@@ -177,30 +203,35 @@
     .story {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: 8px;
       margin-bottom: 1rem;
       overflow: hidden;
       position: relative;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .story:hover {
-      border-color: rgba(47, 228, 255, 0.30);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+      border-color: var(--purple-mid);
+      box-shadow: 0 4px 20px rgba(107, 48, 212, 0.08);
     }
 
-    /* story index number — top-right watermark */
+    /* story number watermark */
     .story-idx {
       position: absolute;
-      top: 1.15rem;
+      top: 1.1rem;
       right: 1.25rem;
-      font-size: 1.9rem;
+      font-size: 2rem;
       font-weight: 900;
-      color: var(--border);
+      color: var(--faint);
       line-height: 1;
       pointer-events: none;
       user-select: none;
       font-variant-numeric: tabular-nums;
       letter-spacing: -0.04em;
+    }
+
+    /* pink left-border accent on first child (featured) */
+    .story:first-of-type {
+      border-left: 3px solid var(--pink);
     }
 
     .story-body { padding: 1.4rem 1.5rem 1.2rem; }
@@ -210,41 +241,40 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      background: var(--accent-bg);
-      color: var(--accent);
-      font-size: 0.68rem;
+      background: var(--pink-light);
+      color: var(--pink);
+      font-size: 0.67rem;
       font-weight: 700;
       letter-spacing: 0.09em;
       text-transform: uppercase;
       padding: 0.22rem 0.65rem 0.22rem 0.5rem;
       border-radius: 3px;
-      border: 1px solid rgba(47,228,255,0.15);
+      border: 1px solid rgba(200, 32, 106, 0.15);
       margin-bottom: 0.75rem;
     }
     .hook-icon {
-      width: 0;
-      height: 0;
+      width: 0; height: 0;
       border-top: 4px solid transparent;
       border-bottom: 4px solid transparent;
-      border-left: 7px solid var(--accent);
+      border-left: 7px solid var(--pink);
       flex-shrink: 0;
     }
 
     /* ── Headline ── */
     .story h2 {
-      font-size: 1.2rem;
+      font-size: 1.22rem;
       font-weight: 800;
-      line-height: 1.3;
-      color: var(--white);
+      line-height: 1.28;
+      color: var(--ink);
       margin-bottom: 0.85rem;
-      padding-right: 3.2rem; /* avoid overlap with story number */
+      padding-right: 3.2rem;
     }
     .story h2 a {
       color: inherit;
       text-decoration: none;
       transition: color 0.15s;
     }
-    .story h2 a:hover { color: var(--accent); }
+    .story h2 a:hover { color: var(--purple); }
 
     /* ── Summary ── */
     .summary {
@@ -255,9 +285,9 @@
 
     /* ── Why It Matters ── */
     .why {
-      background: var(--accent-bg);
+      background: var(--purple-light);
       border-top: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
+      border-left: 3px solid var(--purple);
       padding: 0.8rem 1.1rem 0.8rem 1.3rem;
     }
     .why-label {
@@ -265,7 +295,7 @@
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.2em;
-      color: var(--accent);
+      color: var(--purple);
       margin-bottom: 0.28rem;
     }
     .why p {
@@ -281,21 +311,21 @@
       align-items: center;
       justify-content: flex-end;
       padding: 0.55rem 1.5rem;
-      background: var(--surface);
+      background: var(--silver-light);
       border-top: 1px solid var(--border);
     }
     .read-link {
       font-size: 0.7rem;
       font-weight: 600;
-      color: var(--accent);
+      color: var(--purple);
       text-decoration: none;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
       display: flex;
       align-items: center;
       gap: 0.35rem;
-      transition: opacity 0.15s;
+      transition: color 0.15s;
     }
-    .read-link:hover { opacity: 0.7; }
+    .read-link:hover { color: var(--pink); }
     .read-link svg {
       width: 9px; height: 9px;
       stroke: currentColor;
@@ -310,41 +340,49 @@
        SITE FOOTER
     ════════════════════════════════════════ */
     .site-footer {
-      background: var(--ink);
-      border-top: 1px solid var(--border);
+      background: var(--footer-bg);
       text-align: center;
-      padding: 3rem 1.5rem 2.5rem;
+      padding: 3.5rem 1.5rem 2.5rem;
+      position: relative;
+    }
+    /* gold top rule */
+    .site-footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--purple) 0%, var(--pink) 50%, var(--gold-mid) 100%);
     }
 
     .footer-brand {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 800;
-      color: var(--white);
+      color: #fff;
       letter-spacing: 0.02em;
+      margin-bottom: 0.3rem;
     }
-    .footer-brand .accent { color: var(--accent); }
+    .footer-brand .purple { color: var(--purple-mid); }
 
     .footer-rule {
-      width: 40px;
-      height: 1px;
-      background: var(--border);
+      width: 40px; height: 1px;
+      background: var(--gold);
       margin: 0.75rem auto;
     }
 
     .footer-tagline {
       font-size: 0.62rem;
-      color: var(--muted);
+      color: var(--silver);
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      margin-bottom: 1.8rem;
+      margin-bottom: 2rem;
     }
 
     .sources-label {
       font-size: 0.57rem;
       text-transform: uppercase;
       letter-spacing: 0.18em;
-      color: #2A3A52;
+      color: #4A4060;
       margin-bottom: 0.75rem;
     }
 
@@ -354,44 +392,43 @@
       justify-content: center;
       gap: 0.35rem;
       max-width: 680px;
-      margin: 0 auto 1.75rem;
+      margin: 0 auto 2rem;
     }
     .pills a {
-      color: var(--muted);
+      color: var(--silver);
       font-size: 0.62rem;
       text-decoration: none;
-      border: 1px solid var(--border);
-      background: var(--raised);
-      padding: 0.18rem 0.55rem;
+      border: 1px solid #312845;
+      background: #231E36;
+      padding: 0.2rem 0.6rem;
       border-radius: 3px;
       transition: all 0.15s;
     }
     .pills a:hover {
-      background: var(--accent);
+      background: var(--gold);
       color: var(--ink);
-      border-color: var(--accent);
+      border-color: var(--gold);
       font-weight: 600;
     }
 
     .footer-credit {
       font-size: 0.62rem;
-      color: #2A3A52;
+      color: #4A4060;
       padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid #231E36;
     }
-    .footer-credit strong { color: var(--muted); }
+    .footer-credit strong { color: var(--silver); }
 
     /* ════════════════════════════════════════
        RESPONSIVE
     ════════════════════════════════════════ */
     @media (max-width: 600px) {
-      .brand       { font-size: 2.8rem; }
-      .topbar      { display: none; }
-      .story-body  { padding: 1.2rem 1.2rem 1rem; }
-      .story-foot  { padding: 0.5rem 1.2rem; }
-      .story-idx   { font-size: 1.5rem; top: 1rem; right: 1rem; }
-      .story h2    { font-size: 1.08rem; padding-right: 2.6rem; }
-      .edition-meta{ flex-wrap: wrap; }
+      .brand     { font-size: 2.8rem; }
+      .topbar    { display: none; }
+      .story-body { padding: 1.2rem 1.2rem 1rem; }
+      .story-foot { padding: 0.5rem 1.2rem; }
+      .story-idx  { font-size: 1.4rem; top: 1rem; right: 1rem; }
+      .story h2   { font-size: 1.08rem; padding-right: 2.6rem; }
     }
   </style>
 </head>
@@ -409,7 +446,7 @@
 
 <!-- Masthead -->
 <header class="masthead">
-  <div class="brand">AI <span class="accent">Daily</span></div>
+  <div class="brand">AI <span class="purple">Daily</span></div>
   <div class="brand-ornament">
     <span class="line"></span>
     <span class="diamond"></span>
@@ -418,7 +455,7 @@
   <div class="tagline">Facts First &nbsp;·&nbsp; Context Always &nbsp;·&nbsp; Every Morning</div>
   <div class="edition-meta">
     <div class="meta-cell">Sources <strong>20</strong></div>
-    <div class="meta-cell">Stories <strong>9</strong></div>
+    <div class="meta-cell">Stories <strong>10</strong></div>
     <div class="meta-cell">Edition <strong>2026-02-24</strong></div>
   </div>
 </header>
@@ -430,9 +467,10 @@
   
 
   <div class="section-hd">
-    <span class="section-label">Policy &amp; Regulation</span>
-    <span class="section-count">3 stories</span>
+    <span class="section-label">AI Research</span>
+    <span class="section-count">5 stories</span>
   </div>
+
   
   
   <article class="story">
@@ -442,153 +480,24 @@
       
       <div class="hook">
         <span class="hook-icon"></span>
-        Chicago has tens of thousands of surveillance cameras
+        Instagram&#39;s Adam Mosseri warns about AI authenticity issues
       </div>
       
 
       <h2>
         
-        <a href="https://www.technologyreview.com/2026/02/23/1133495/the-download-chicagos-surveillance-network-and-building-better-bras/" target="_blank" rel="noopener noreferrer">Chicago&#39;s Surveillance Network</a>
+        <a href="https://www.theverge.com/ai-artificial-intelligence/882956/ai-deepfake-detection-labels-c2pa-instagram-youtube" target="_blank" rel="noopener noreferrer">Instagram Head on AI Slop</a>
         
       </h2>
 
-      <p class="summary">The Download newsletter from MIT Technology Review examines Chicago&#39;s extensive surveillance network, discussing its scale and implications for privacy and security.</p>
+      <p class="summary">Instagram head Adam Mosseri warns that AI is making authenticity reproducible, threatening the uniqueness of creators. This reflects growing concerns about the impact of AI on content creation and authenticity online.</p>
 
     </div>
 
     
     <div class="why">
       <div class="why-label">Why it matters</div>
-      <p>It highlights the growing use of surveillance technology in urban environments.</p>
-    </div>
-    
-
-    
-    <div class="story-foot">
-      <a class="read-link" href="https://www.technologyreview.com/2026/02/23/1133495/the-download-chicagos-surveillance-network-and-building-better-bras/" target="_blank" rel="noopener noreferrer">
-        Read full story
-        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
-      </a>
-    </div>
-    
-
-  </article>
-  
-  
-  <article class="story">
-    <span class="story-idx">02</span>
-    <div class="story-body">
-
-      
-      <div class="hook">
-        <span class="hook-icon"></span>
-        UK police use AI in complex investigations
-      </div>
-      
-
-      <h2>
-        
-        <a href="https://www.theguardian.com/technology/2026/feb/24/police-ai-chief-admits-crime-fighting-tech-will-have-bias-but-vows-to-tackle-it" target="_blank" rel="noopener noreferrer">UK Police Embrace AI in Investigations</a>
-        
-      </h2>
-
-      <p class="summary">The Guardian reports on the UK police&#39;s adoption of AI in investigations, highlighting the use of AI tools in a major fraud case. This article discusses the integration of AI into law enforcement.</p>
-
-    </div>
-
-    
-    <div class="why">
-      <div class="why-label">Why it matters</div>
-      <p>It shows the increasing role of AI in criminal investigations and the potential for bias in AI tools.</p>
-    </div>
-    
-
-    
-    <div class="story-foot">
-      <a class="read-link" href="https://www.theguardian.com/technology/2026/feb/24/police-ai-chief-admits-crime-fighting-tech-will-have-bias-but-vows-to-tackle-it" target="_blank" rel="noopener noreferrer">
-        Read full story
-        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
-      </a>
-    </div>
-    
-
-  </article>
-  
-  
-  <article class="story">
-    <span class="story-idx">03</span>
-    <div class="story-body">
-
-      
-      <div class="hook">
-        <span class="hook-icon"></span>
-        Nine Entertainment calls for tech company compensation
-      </div>
-      
-
-      <h2>
-        
-        <a href="https://www.theguardian.com/media/2026/feb/24/nine-entertainment-australia-news-bargaining-incentive-ai-threat" target="_blank" rel="noopener noreferrer">Tech Companies and Media Compensation</a>
-        
-      </h2>
-
-      <p class="summary">The Guardian reports on Nine Entertainment&#39;s call for tech companies to compensate media in the face of AI disruption. This article discusses the impact of AI on media revenue models.</p>
-
-    </div>
-
-    
-    <div class="why">
-      <div class="why-label">Why it matters</div>
-      <p>It raises the issue of the economic impact of AI on traditional media industries.</p>
-    </div>
-    
-
-    
-    <div class="story-foot">
-      <a class="read-link" href="https://www.theguardian.com/media/2026/feb/24/nine-entertainment-australia-news-bargaining-incentive-ai-threat" target="_blank" rel="noopener noreferrer">
-        Read full story
-        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
-      </a>
-    </div>
-    
-
-  </article>
-  
-
-  
-
-  <div class="section-hd">
-    <span class="section-label">AI Research</span>
-    <span class="section-count">4 stories</span>
-  </div>
-
-  
-  
-  <article class="story">
-    <span class="story-idx">04</span>
-    <div class="story-body">
-
-      
-      <div class="hook">
-        <span class="hook-icon"></span>
-        Instagram&#39;s Mosseri warns on AI authenticity
-      </div>
-      
-
-      <h2>
-        
-        <a href="https://www.theverge.com/ai-artificial-intelligence/882956/ai-deepfake-detection-labels-c2pa-instagram-youtube" target="_blank" rel="noopener noreferrer">Big Tech&#39;s Stance on AI Slop</a>
-        
-      </h2>
-
-      <p class="summary">Instagram head Adam Mosseri expressed concerns about the impact of AI on authenticity, noting that AI is making it easier to fake reality. This reflects broader concerns about the role of AI in content creation and its implications for society.</p>
-
-    </div>
-
-    
-    <div class="why">
-      <div class="why-label">Why it matters</div>
-      <p>The discussion highlights the ethical challenges posed by AI and the need for industry responsibility.</p>
+      <p>The statement highlights the societal implications of AI on content creation and authenticity.</p>
     </div>
     
 
@@ -605,13 +514,13 @@
   
   
   <article class="story">
-    <span class="story-idx">05</span>
+    <span class="story-idx">02</span>
     <div class="story-body">
 
       
       <div class="hook">
         <span class="hook-icon"></span>
-        OpenAI&#39;s ChatGPT raised concerns before shooting
+        Suspect discussed violence with ChatGPT
       </div>
       
 
@@ -621,14 +530,14 @@
         
       </h2>
 
-      <p class="summary">The suspect in the Tumbler Ridge school shooting had conversations with ChatGPT involving descriptions of gun violence, which triggered concerns among OpenAI employees. This incident raises questions about the use of AI in detecting potential threats.</p>
+      <p class="summary">The suspect in the Tumbler Ridge school shooting had conversations with ChatGPT involving descriptions of gun violence. This raises concerns about the potential misuse of AI chatbots and the need for better content moderation.</p>
 
     </div>
 
     
     <div class="why">
       <div class="why-label">Why it matters</div>
-      <p>It highlights the challenges of using AI to detect and prevent violent behavior.</p>
+      <p>The incident highlights the risks associated with AI chatbots and the importance of effective content moderation.</p>
     </div>
     
 
@@ -645,13 +554,13 @@
   
   
   <article class="story">
-    <span class="story-idx">06</span>
+    <span class="story-idx">03</span>
     <div class="story-body">
 
       
       <div class="hook">
         <span class="hook-icon"></span>
-        Peptides emerge as the latest wellness trend
+        Peptides are the new alternative medicine cure-all
       </div>
       
 
@@ -661,14 +570,14 @@
         
       </h2>
 
-      <p class="summary">MIT Technology Review explores the rise of peptides as a wellness trend, discussing their use in weight loss, muscle building, and cognitive function. This article examines the growing popularity of alternative medicine approaches.</p>
+      <p class="summary">MIT Technology Review explores the rise of peptides as a popular alternative medicine, discussing their potential benefits and the complexities surrounding their use.</p>
 
     </div>
 
     
     <div class="why">
       <div class="why-label">Why it matters</div>
-      <p>It highlights the intersection of technology and health trends.</p>
+      <p>The article highlights the intersection of AI and alternative medicine and the potential impact on healthcare.</p>
     </div>
     
 
@@ -685,13 +594,13 @@
   
   
   <article class="story">
-    <span class="story-idx">07</span>
+    <span class="story-idx">04</span>
     <div class="story-body">
 
       
       <div class="hook">
         <span class="hook-icon"></span>
-        Nvidia&#39;s Huang on physical AI era
+        Nvidia&#39;s Jensen Huang on physical AI era
       </div>
       
 
@@ -701,20 +610,189 @@
         
       </h2>
 
-      <p class="summary">MIT Technology Review discusses the increasing role of AI in humanoid robots and the potential for human work to be hidden behind these technologies. This article explores the implications of AI in physical tasks.</p>
+      <p class="summary">MIT Technology Review discusses the increasing role of AI in humanoid robots and the potential for hiding the human work behind these technologies. This raises ethical and transparency concerns.</p>
 
     </div>
 
     
     <div class="why">
       <div class="why-label">Why it matters</div>
-      <p>It raises questions about the future of work and the role of AI in automation.</p>
+      <p>The article highlights the ethical implications of AI in robotics and the need for transparency in AI development.</p>
     </div>
     
 
     
     <div class="story-foot">
       <a class="read-link" href="https://www.technologyreview.com/2026/02/23/1133508/the-human-work-behind-humanoid-robots-is-being-hidden/" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+  
+  <article class="story">
+    <span class="story-idx">05</span>
+    <div class="story-body">
+
+      
+      <div class="hook">
+        <span class="hook-icon"></span>
+        AI dating app &#39;Fate&#39; raises ethical concerns
+      </div>
+      
+
+      <h2>
+        
+        <a href="https://www.theguardian.com/commentisfree/2026/feb/24/fate-ai-dating-sites-apps-marriage-dystopia" target="_blank" rel="noopener noreferrer">AI-arranged Marriage and Fate App</a>
+        
+      </h2>
+
+      <p class="summary">The Guardian explores the ethical implications of the AI dating app &#39;Fate&#39;, which uses AI to match potential partners. This raises questions about the role of AI in personal relationships and the potential for manipulation.</p>
+
+    </div>
+
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The article highlights the societal impact of AI on personal relationships and the potential for ethical dilemmas.</p>
+    </div>
+    
+
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.theguardian.com/commentisfree/2026/feb/24/fate-ai-dating-sites-apps-marriage-dystopia" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+
+  
+
+  <div class="section-hd">
+    <span class="section-label">Policy &amp; Regulation</span>
+    <span class="section-count">3 stories</span>
+  </div>
+
+  
+  
+  <article class="story">
+    <span class="story-idx">06</span>
+    <div class="story-body">
+
+      
+      <div class="hook">
+        <span class="hook-icon"></span>
+        Chicago has one of the largest surveillance networks in the US
+      </div>
+      
+
+      <h2>
+        
+        <a href="https://www.technologyreview.com/2026/02/23/1133495/the-download-chicagos-surveillance-network-and-building-better-bras/" target="_blank" rel="noopener noreferrer">Chicago&#39;s Surveillance Network</a>
+        
+      </h2>
+
+      <p class="summary">The Download newsletter discusses Chicago&#39;s extensive surveillance network, highlighting the city&#39;s use of technology in law enforcement and the implications for privacy and civil liberties.</p>
+
+    </div>
+
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The article raises concerns about the use of AI and surveillance technology in urban settings.</p>
+    </div>
+    
+
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.technologyreview.com/2026/02/23/1133495/the-download-chicagos-surveillance-network-and-building-better-bras/" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+  
+  <article class="story">
+    <span class="story-idx">07</span>
+    <div class="story-body">
+
+      
+      <div class="hook">
+        <span class="hook-icon"></span>
+        UK police AI chief acknowledges bias in crime-fighting tech
+      </div>
+      
+
+      <h2>
+        
+        <a href="https://www.theguardian.com/technology/2026/feb/24/police-ai-chief-admits-crime-fighting-tech-will-have-bias-but-vows-to-tackle-it" target="_blank" rel="noopener noreferrer">UK Police AI Bias</a>
+        
+      </h2>
+
+      <p class="summary">A UK police chief admits that AI used in crime fighting will contain bias but vows to tackle it. This reflects the ongoing debate about the fairness and effectiveness of AI in law enforcement.</p>
+
+    </div>
+
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The statement highlights the challenges of ensuring fairness in AI applications within law enforcement.</p>
+    </div>
+    
+
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.theguardian.com/technology/2026/feb/24/police-ai-chief-admits-crime-fighting-tech-will-have-bias-but-vows-to-tackle-it" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+  
+  <article class="story">
+    <span class="story-idx">08</span>
+    <div class="story-body">
+
+      
+      <div class="hook">
+        <span class="hook-icon"></span>
+        Nine Entertainment CEO calls for tech companies to compensate media
+      </div>
+      
+
+      <h2>
+        
+        <a href="https://www.theguardian.com/media/2026/feb/24/nine-entertainment-australia-news-bargaining-incentive-ai-threat" target="_blank" rel="noopener noreferrer">Tech Companies and Media Compensation</a>
+        
+      </h2>
+
+      <p class="summary">The CEO of Nine Entertainment calls on the Australian government to force tech companies to compensate media due to the impact of AI on revenue models. This reflects the broader debate about the economic implications of AI for media companies.</p>
+
+    </div>
+
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The article highlights the economic challenges faced by media companies in the age of AI and the potential need for government intervention.</p>
+    </div>
+    
+
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.theguardian.com/media/2026/feb/24/nine-entertainment-australia-news-bargaining-incentive-ai-threat" target="_blank" rel="noopener noreferrer">
         Read full story
         <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
       </a>
@@ -734,13 +812,13 @@
   
   
   <article class="story">
-    <span class="story-idx">08</span>
+    <span class="story-idx">09</span>
     <div class="story-body">
 
       
       <div class="hook">
         <span class="hook-icon"></span>
-        Perplexity added to Galaxy S26 AI suite
+        Samsung adds Perplexity to Galaxy AI
       </div>
       
 
@@ -750,14 +828,14 @@
         
       </h2>
 
-      <p class="summary">Samsung has integrated Perplexity AI into its Galaxy S26, allowing users to interact with the AI agent using voice commands. This move reflects the growing trend of incorporating multiple AI agents into consumer devices for various tasks.</p>
+      <p class="summary">Samsung is integrating Perplexity AI into its Galaxy S26, allowing users to interact with the AI agent using voice commands. This move reflects the growing trend of incorporating multiple AI agents for various tasks.</p>
 
     </div>
 
     
     <div class="why">
       <div class="why-label">Why it matters</div>
-      <p>The integration of AI into consumer electronics continues to expand, offering new ways for users to interact with technology.</p>
+      <p>The integration of Perplexity into Samsung&#39;s devices showcases the expansion of AI capabilities in consumer electronics.</p>
     </div>
     
 
@@ -783,7 +861,7 @@
   
   
   <article class="story">
-    <span class="story-idx">09</span>
+    <span class="story-idx">10</span>
     <div class="story-body">
 
       
@@ -799,14 +877,14 @@
         
       </h2>
 
-      <p class="summary">The Uncanny Valley podcast discusses AI researcher resignations and the phenomenon of AI agents hiring humans. This reflects the evolving dynamics between humans and AI in the workplace.</p>
+      <p class="summary">The Uncanny Valley podcast discusses AI researcher resignations and the phenomenon of AI agents hiring humans. This reflects the evolving dynamics in the AI industry and the increasing role of AI in human employment.</p>
 
     </div>
 
     
     <div class="why">
       <div class="why-label">Why it matters</div>
-      <p>It underscores the changing nature of work and the integration of AI into various aspects of employment.</p>
+      <p>The discussions highlight the transformative impact of AI on the workforce and the evolving nature of human-AI interactions.</p>
     </div>
     
 
@@ -828,7 +906,7 @@
 
 <!-- Footer -->
 <footer class="site-footer">
-  <div class="footer-brand">AI <span class="accent">Daily</span></div>
+  <div class="footer-brand">AI <span class="purple">Daily</span></div>
   <div class="footer-rule"></div>
   <div class="footer-tagline">Facts First &nbsp;·&nbsp; Context Always &nbsp;·&nbsp; Every Morning</div>
 
