@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Daily — 2026-03-09</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ═══════════════════════════════════════════════
+       DESIGN TOKENS — 4 colours, deliberate roles
+       ┌──────────────┬────────────────────────────┐
+       │ White        │ card backgrounds, masthead │
+       │ Light gray   │ page canvas, topbar, trays │
+       │ Silver       │ borders, muted text, marks │
+       │ Gold         │ every accent & interaction │
+       └──────────────┴────────────────────────────┘
+    ═══════════════════════════════════════════════ */
+    :root {
+      /* ── White ── */
+      --white:        #FFFFFF;
+
+      /* ── Light gray ── (warm newsprint tone) */
+      --gray-page:    #F2EFE9;   /* page canvas                */
+      --gray-bar:     #EAE7E1;   /* topbar, card footer tray   */
+      --gray-hover:   #E4E1DA;   /* subtle hover on gray areas */
+
+      /* ── Silver ── */
+      --silver-text:  #7A7672;   /* secondary / muted text     */
+      --silver-mid:   #B8B4AE;   /* medium borders             */
+      --silver-lt:    #D8D4CC;   /* light borders              */
+      --silver-mark:  #D0CCC4;   /* story-number watermark     */
+
+      /* ── Gold ── */
+      --gold:         #B08C25;   /* primary accent             */
+      --gold-rich:    #C9A640;   /* slightly brighter gold     */
+      --gold-rule:    #D4B050;   /* gradient midpoint          */
+      --gold-tint:    #F8F1DC;   /* gold-tinted surface        */
+      --gold-dark:    #8A6C18;   /* gold on hover (darker)     */
+
+      /* ── Typography ── (warm neutrals, no blue) */
+      --ink:          #1A1814;   /* headlines — near-black warm */
+      --body-tx:      #3C3830;   /* body copy — warm dark       */
+      --muted:        #7A7672;   /* labels, meta, timestamps    */
+      --faint:        #C4C0B8;   /* watermarks only             */
+
+      /* ── Footer ── */
+      --footer-bg:    #1E1C17;   /* very dark warm charcoal     */
+    }
+
+    /* ═══════════════════════════════════════════════
+       BASE
+    ═══════════════════════════════════════════════ */
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--gray-page);
+      color: var(--body-tx);
+      font-size: 15.5px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ═══════════════════════════════════════════════
+       GOLD TOP RULE  — thin gold stripe at very top
+    ═══════════════════════════════════════════════ */
+    .top-rule {
+      height: 4px;
+      background: linear-gradient(90deg,
+        var(--gold) 0%, var(--gold-rule) 40%,
+        var(--gold-rich) 60%, var(--gold) 100%);
+    }
+
+    /* ═══════════════════════════════════════════════
+       TOP BAR  (light gray — calm, informational)
+    ═══════════════════════════════════════════════ */
+    .topbar {
+      background: var(--gray-bar);
+      border-bottom: 1px solid var(--silver-lt);
+      padding: 0.45rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.62rem;
+      color: var(--silver-text);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ═══════════════════════════════════════════════
+       MASTHEAD  (white — clean editorial centrepiece)
+    ═══════════════════════════════════════════════ */
+    .masthead {
+      background: var(--white);
+      border-bottom: 1px solid var(--silver-lt);
+      text-align: center;
+      padding: 3rem 1rem 2.4rem;
+      position: relative;
+    }
+    /* gold rule at the base of the masthead */
+    .masthead::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        var(--gold-rule) 25%,
+        var(--gold) 50%,
+        var(--gold-rule) 75%,
+        transparent 100%);
+    }
+
+    /* Playfair Display serif logotype */
+    .brand {
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size: 4.2rem;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+      line-height: 1;
+    }
+    .brand .gold-word { color: var(--gold); }
+
+    /* ornament: silver lines + gold diamond */
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      margin: 1.1rem auto 0.9rem;
+    }
+    .ornament .rule   { width: 60px; height: 1px; background: var(--silver-lt); }
+    .ornament .gem    {
+      width: 7px; height: 7px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    .tagline {
+      font-size: 0.69rem;
+      color: var(--muted);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    /* edition stats bar */
+    .edition-bar {
+      display: inline-flex;
+      margin-top: 1.75rem;
+      border: 1px solid var(--silver-mid);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .e-cell {
+      padding: 0.5rem 1.5rem;
+      font-size: 0.67rem;
+      color: var(--muted);
+      background: var(--gray-bar);
+      border-right: 1px solid var(--silver-lt);
+    }
+    .e-cell:last-child { border-right: none; }
+    .e-cell strong { color: var(--gold); font-weight: 700; }
+
+    /* ═══════════════════════════════════════════════
+       WRAPPER
+    ═══════════════════════════════════════════════ */
+    .wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 5rem;
+    }
+
+    /* ═══════════════════════════════════════════════
+       SECTION HEADER
+       gold left-edge accent + silver label
+    ═══════════════════════════════════════════════ */
+    .section-hd {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin: 2.75rem 0 1.1rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid var(--silver-lt);
+      position: relative;
+    }
+    .section-hd::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0;
+      width: 52px; height: 2px;
+      background: var(--gold);
+    }
+    .sec-label {
+      font-size: 0.59rem;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .sec-count {
+      font-size: 0.57rem;
+      color: var(--silver-mid);
+      letter-spacing: 0.06em;
+      margin-left: auto;
+    }
+
+    /* ═══════════════════════════════════════════════
+       STORY CARD
+       white on light-gray — clear visual lift
+    ═══════════════════════════════════════════════ */
+    .story {
+      background: var(--white);
+      border: 1px solid var(--silver-lt);
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .story:hover {
+      border-color: var(--gold-rich);
+      box-shadow: 0 6px 20px rgba(176, 140, 37, 0.12);
+      transform: translateY(-1px);
+    }
+
+    /* gold top accent line on every card */
+    .story::before {
+      content: '';
+      display: block;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-rule) 60%, transparent 100%);
+    }
+
+    /* silver watermark number — top right */
+    .story-num {
+      position: absolute;
+      top: 1.2rem; right: 1.3rem;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--silver-mark);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.04em;
+    }
+
+    .story-body { padding: 1.4rem 1.55rem 1.25rem; }
+
+    /* ── Hook  (gold pill — quick-scan line) ── */
+    .hook {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--gold-tint);
+      color: var(--gold-dark);
+      border: 1px solid rgba(176, 140, 37, 0.25);
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.7rem 0.22rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 0.75rem;
+    }
+    .hook::before {
+      content: '';
+      display: block;
+      width: 0; height: 0;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-left: 7px solid var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ── Headline ── */
+    .story h2 {
+      font-size: 1.22rem;
+      font-weight: 800;
+      line-height: 1.3;
+      color: var(--ink);
+      margin-bottom: 0.85rem;
+      padding-right: 3rem;
+    }
+    .story h2 a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .story h2 a:hover { color: var(--gold); }
+
+    /* ── Body copy ── */
+    .summary {
+      font-size: 0.91rem;
+      color: var(--body-tx);
+      line-height: 1.86;
+    }
+
+    /* ── Why It Matters  (gold-tinted callout) ── */
+    .why {
+      background: var(--gold-tint);
+      border-top: 1px solid var(--silver-lt);
+      border-left: 3px solid var(--gold);
+      padding: 0.85rem 1.15rem 0.85rem 1.3rem;
+    }
+    .why-label {
+      font-size: 0.55rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .why p {
+      font-size: 0.875rem;
+      color: var(--body-tx);
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    /* ── Card footer tray  (light gray) ── */
+    .story-foot {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0.55rem 1.55rem;
+      background: var(--gray-bar);
+      border-top: 1px solid var(--silver-lt);
+    }
+    .read-link {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: color 0.15s;
+    }
+    .read-link:hover { color: var(--gold-dark); }
+    .read-link svg {
+      width: 9px; height: 9px;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.9;
+      stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════════
+       SITE FOOTER  (warm dark charcoal)
+    ═══════════════════════════════════════════════ */
+    .site-footer {
+      background: var(--footer-bg);
+      text-align: center;
+      padding: 3.5rem 1.5rem 2.5rem;
+      position: relative;
+    }
+    /* gold rule at the very top of footer */
+    .site-footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg,
+        var(--gold) 0%, var(--gold-rule) 50%, var(--gold) 100%);
+    }
+
+    .ft-brand {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .ft-brand .gold-word { color: var(--gold-rich); }
+
+    .ft-rule { width: 40px; height: 1px; background: var(--gold); margin: 0.8rem auto; }
+
+    .ft-tagline {
+      font-size: 0.6rem;
+      color: var(--silver-mid);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .ft-src-label {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: #403C34;
+      margin-bottom: 0.75rem;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.35rem;
+      max-width: 680px;
+      margin: 0 auto 2rem;
+    }
+    .pills a {
+      font-size: 0.61rem;
+      color: var(--silver-mid);
+      text-decoration: none;
+      border: 1px solid #352F24;
+      background: #2A2620;
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+      transition: all 0.15s;
+    }
+    .pills a:hover {
+      background: var(--gold);
+      color: var(--ink);
+      border-color: var(--gold);
+      font-weight: 600;
+    }
+
+    .ft-credit {
+      font-size: 0.6rem;
+      color: #403C34;
+      padding-top: 1.5rem;
+      border-top: 1px solid #2A2620;
+    }
+    .ft-credit strong { color: var(--silver-mid); }
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════ */
+    @media (max-width: 600px) {
+      .brand       { font-size: 2.8rem; }
+      .topbar      { display: none; }
+      .story-body  { padding: 1.2rem 1.2rem 1rem; }
+      .story-foot  { padding: 0.5rem 1.2rem; }
+      .story-num   { font-size: 1.5rem; top: 1rem; right: 1rem; }
+      .story h2    { font-size: 1.07rem; padding-right: 2.5rem; }
+      .edition-bar { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Gold rule — very first thing seen -->
+<div class="top-rule"></div>
+
+<!-- Top bar: light gray -->
+<div class="topbar">
+  <span>EST. 2026 &nbsp;·&nbsp; AUTOMATED EDITION</span>
+  <span>10 STORIES CURATED TODAY</span>
+  <span>BIGMODEL + CLAUDE CODE</span>
+</div>
+
+<!-- Masthead: white, Playfair serif, gold rule underneath -->
+<header class="masthead">
+  <div class="brand">AI <span class="gold-word">Daily</span></div>
+  <div class="ornament">
+    <span class="rule"></span>
+    <span class="gem"></span>
+    <span class="rule"></span>
+  </div>
+  <div class="tagline">Facts First &nbsp;·&nbsp; Context Always &nbsp;·&nbsp; Every Morning</div>
+  <div class="edition-bar">
+    <div class="e-cell">Sources&ensp;<strong>20</strong></div>
+    <div class="e-cell">Stories&ensp;<strong>10</strong></div>
+    <div class="e-cell">Edition&ensp;<strong>2026-03-09</strong></div>
+  </div>
+</header>
+
+<!-- Stories: light-gray canvas, white cards -->
+<main class="wrapper">
+
+  
+  
+
+  <div class="section-hd">
+    <span class="sec-label">AI Research</span>
+    <span class="sec-count">3&thinsp;stories</span>
+  </div>
+
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">01</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">OpenClaw&#39;s ClawCon NYC event draws superfans with lobster-themed decor.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.theverge.com/ai-artificial-intelligence/890517/openclaw-clawcon-meetup-nyc-open-source-ai" target="_blank" rel="noopener noreferrer">OpenClaw Meetup in NYC</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">OpenClaw, an open-source AI project, hosted its ClawCon event in Manhattan, attracting fans with a lobster-themed atmosphere. The event featured pink and purple lighting, lobster claw headbands, and multicolored name tags, organized by volunteers who wore plush lobster headdresses. The gathering aimed to foster community and collaboration around the project.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The event highlights the growing community around open-source AI projects and the importance of community engagement in fostering innovation.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.theverge.com/ai-artificial-intelligence/890517/openclaw-clawcon-meetup-nyc-open-source-ai" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">02</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">AI is turning the Iran conflict into a theater with online intelligence dashboards.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.technologyreview.com/2026/03/09/1134063/how-ai-is-turning-the-iran-conflict-into-theater/" target="_blank" rel="noopener noreferrer">AI in Iran Conflict</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">Online intelligence dashboards are being used to track and analyze the Iran conflict, turning the situation into a digital theater. The dashboards provide real-time data and analysis, raising concerns about the role of AI in conflict and its potential implications for future warfare.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The use of AI in conflict situations raises ethical and strategic questions about the future of warfare and the role of technology.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.technologyreview.com/2026/03/09/1134063/how-ai-is-turning-the-iran-conflict-into-theater/" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">03</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">Usability is crucial for securing digital asset devices, according to a study.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.technologyreview.com/2026/03/09/1132352/the-usability-imperative-for-securing-digital-asset-devices/" target="_blank" rel="noopener noreferrer">Digital Asset Device Security</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">A study highlights the importance of usability in securing digital asset devices, drawing on the example of the iPod&#39;s development. The study suggests that a balance between usability and security is essential to prevent vulnerabilities and ensure user safety.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The findings have implications for the design and security of digital devices, particularly those involving AI and personal data.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.technologyreview.com/2026/03/09/1132352/the-usability-imperative-for-securing-digital-asset-devices/" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+
+  
+
+  <div class="section-hd">
+    <span class="sec-label">Policy &amp; Regulation</span>
+    <span class="sec-count">3&thinsp;stories</span>
+  </div>
+
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">04</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">The Pentagon designates Anthropic as a supply-chain risk.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.theverge.com/ai-artificial-intelligence/890347/pentagon-anthropic-supply-chain-risk" target="_blank" rel="noopener noreferrer">Pentagon Labels Anthropic Risk</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">The Defense Department has labeled Anthropic, an AI company, as a supply-chain risk, following disputes over acceptable use policies. This decision could escalate into legal action and has implications for the company&#39;s business and the broader AI industry.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The move signals a growing tension between the government and AI companies over the use and regulation of AI technology.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.theverge.com/ai-artificial-intelligence/890347/pentagon-anthropic-supply-chain-risk" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">05</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">OpenAI and Google workers file an amicus brief in support of Anthropic against the US government.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.wired.com/story/openai-deepmind-employees-file-amicus-brief-anthropic-dod-lawsuit/" target="_blank" rel="noopener noreferrer">OpenAI and Google Support Anthropic</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">AI researchers and engineers from OpenAI and Google have filed an amicus brief supporting Anthropic in its legal battle against the US government over the supply-chain risk designation. The brief is led by Google DeepMind chief scientist Jeff Dean.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The support from major industry players indicates a broader concern within the AI community about government actions and their impact on AI development.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.wired.com/story/openai-deepmind-employees-file-amicus-brief-anthropic-dod-lawsuit/" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">06</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">Anthropic files lawsuit against the Department of Defense over supply-chain risk designation.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.wired.com/story/anthropic-sues-department-of-defense-over-supply-chain-risk-designation/" target="_blank" rel="noopener noreferrer">Anthropic Sues Defense Department</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">Anthropic has filed a lawsuit against the Department of Defense, arguing that the supply-chain risk designation is unlawful and violates its first amendment rights. The lawsuit follows the Pentagon&#39;s decision to label Anthropic as a supply-chain risk.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The lawsuit could set a precedent for legal challenges to government actions against AI companies.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.wired.com/story/anthropic-sues-department-of-defense-over-supply-chain-risk-designation/" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+
+  
+
+  <div class="section-hd">
+    <span class="sec-label">Product Launch</span>
+    <span class="sec-count">2&thinsp;stories</span>
+  </div>
+
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">07</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">Grammarly&#39;s AI feature mistakenly identifies users&#39; bosses as subject matter experts.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.theverge.com/ai-artificial-intelligence/890921/grammarly-ai-expert-reviews" target="_blank" rel="noopener noreferrer">Grammarly Uses Personal Identities</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">Grammarly&#39;s &#39;expert review&#39; feature, which provides writing advice inspired by subject matter experts, mistakenly included a user&#39;s boss as one of the experts. The AI-generated feedback was based on the boss&#39;s work, raising privacy concerns and highlighting the potential for AI to inadvertently use personal data.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The incident underscores the need for transparency and privacy controls in AI applications that process personal data.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.theverge.com/ai-artificial-intelligence/890921/grammarly-ai-expert-reviews" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">08</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">Nvidia plans to launch an open-source AI agent platform.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.wired.com/story/nvidia-planning-ai-agent-platform-launch-open-source/" target="_blank" rel="noopener noreferrer">Nvidia Open-Source AI Platform</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">Nvidia is preparing to launch an open-source AI agent platform, similar to OpenClaw, at its annual developer conference. The platform aims to foster innovation in AI agent development and collaboration among developers.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The move could accelerate the development of AI agents and their integration into various applications.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.wired.com/story/nvidia-planning-ai-agent-platform-launch-open-source/" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+
+  
+
+  <div class="section-hd">
+    <span class="sec-label">Funding &amp; M&amp;A</span>
+    <span class="sec-count">1&thinsp;story</span>
+  </div>
+
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">09</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">Netflix acquires InterPositive, an AI startup founded by Ben Affleck.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.theverge.com/streaming/889973/netflix-ben-affleck-interpositive-ai" target="_blank" rel="noopener noreferrer">Netflix Buys Affleck&#39;s AI Startup</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">Netflix has purchased InterPositive, an AI company founded by actor Ben Affleck, specializing in tools for film and television production. The acquisition includes all 16 of InterPositive&#39;s engineers, expanding Netflix&#39;s capabilities in AI-driven content creation.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The deal reflects the increasing interest in AI among media companies for enhancing content production and personalization.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.theverge.com/streaming/889973/netflix-ben-affleck-interpositive-ai" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+
+  
+
+  <div class="section-hd">
+    <span class="sec-label">Industry News</span>
+    <span class="sec-count">1&thinsp;story</span>
+  </div>
+
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">10</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">Anthropic claims the Pentagon feud could cost the company billions.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.wired.com/story/anthropic-claims-business-is-in-peril-due-to-supply-chain-risk-designation/" target="_blank" rel="noopener noreferrer">Anthropic Pentagon Feud Costs</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">Anthropic executives believe that the Pentagon&#39;s designation of the company as a supply-chain risk could lead to a significant revenue hit, potentially costing the company billions due to paused deal talks.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The situation highlights the financial risks associated with government actions and public feuds in the AI industry.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.wired.com/story/anthropic-claims-business-is-in-peril-due-to-supply-chain-risk-designation/" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+
+  
+
+</main>
+
+<!-- Footer: warm dark charcoal with gold accents -->
+<footer class="site-footer">
+  <div class="ft-brand">AI <span class="gold-word">Daily</span></div>
+  <div class="ft-rule"></div>
+  <div class="ft-tagline">Facts First &nbsp;·&nbsp; Context Always &nbsp;·&nbsp; Every Morning</div>
+
+  <div class="ft-src-label">Sources Monitored This Edition</div>
+  <div class="pills">
+    
+    <a href="https://techcrunch.com/tag/artificial-intelligence/feed/" target="_blank" rel="noopener noreferrer">TechCrunch AI</a>
+    
+    <a href="https://www.theverge.com/rss/ai-artificial-intelligence/index.xml" target="_blank" rel="noopener noreferrer">The Verge AI</a>
+    
+    <a href="https://www.wired.com/feed/tag/ai/latest/rss" target="_blank" rel="noopener noreferrer">Wired AI</a>
+    
+    <a href="https://feeds.arstechnica.com/arstechnica/technology-lab" target="_blank" rel="noopener noreferrer">Ars Technica</a>
+    
+    <a href="https://venturebeat.com/category/ai/feed/" target="_blank" rel="noopener noreferrer">VentureBeat AI</a>
+    
+    <a href="https://www.technologyreview.com/feed/" target="_blank" rel="noopener noreferrer">MIT Technology Review</a>
+    
+    <a href="https://feeds.reuters.com/reuters/technologyNews" target="_blank" rel="noopener noreferrer">Reuters Technology</a>
+    
+    <a href="https://www.theguardian.com/technology/artificialintelligenceai/rss" target="_blank" rel="noopener noreferrer">The Guardian AI</a>
+    
+    <a href="http://feeds.bbci.co.uk/news/technology/rss.xml" target="_blank" rel="noopener noreferrer">BBC Technology</a>
+    
+    <a href="https://apnews.com/rss/apf-technology" target="_blank" rel="noopener noreferrer">AP News Technology</a>
+    
+    <a href="https://openai.com/blog/rss.xml" target="_blank" rel="noopener noreferrer">OpenAI Blog</a>
+    
+    <a href="https://www.anthropic.com/rss.xml" target="_blank" rel="noopener noreferrer">Anthropic Blog</a>
+    
+    <a href="https://deepmind.google/blog/rss.xml" target="_blank" rel="noopener noreferrer">Google DeepMind</a>
+    
+    <a href="https://huggingface.co/blog/feed.xml" target="_blank" rel="noopener noreferrer">Hugging Face Blog</a>
+    
+    <a href="https://www.artificialintelligence-news.com/feed/" target="_blank" rel="noopener noreferrer">AI News</a>
+    
+    <a href="https://www.zdnet.com/topic/artificial-intelligence/rss.xml" target="_blank" rel="noopener noreferrer">ZDNet AI</a>
+    
+    <a href="https://www.infoq.com/ai-ml-data-eng/rss/" target="_blank" rel="noopener noreferrer">InfoQ AI</a>
+    
+    <a href="https://blogs.nvidia.com/feed/" target="_blank" rel="noopener noreferrer">NVIDIA Blog</a>
+    
+    <a href="https://towardsdatascience.com/feed" target="_blank" rel="noopener noreferrer">Towards Data Science</a>
+    
+    <a href="https://importai.substack.com/feed" target="_blank" rel="noopener noreferrer">Import AI (Jack Clark)</a>
+    
+  </div>
+
+  <div class="ft-credit">
+    Generated by <strong>AI Daily</strong> &nbsp;·&nbsp; 2026-03-09
+    &nbsp;·&nbsp; Powered by <strong>BigModel GLM-4-Flash</strong> + <strong>Claude Code</strong>
+  </div>
+</footer>
+
+</body>
+</html>
