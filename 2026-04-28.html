@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Daily — 2026-04-28</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ═══════════════════════════════════════════════
+       DESIGN TOKENS — 4 colours, deliberate roles
+       ┌──────────────┬────────────────────────────┐
+       │ White        │ card backgrounds, masthead │
+       │ Light gray   │ page canvas, topbar, trays │
+       │ Silver       │ borders, muted text, marks │
+       │ Gold         │ every accent & interaction │
+       └──────────────┴────────────────────────────┘
+    ═══════════════════════════════════════════════ */
+    :root {
+      /* ── White ── */
+      --white:        #FFFFFF;
+
+      /* ── Light gray ── (warm newsprint tone) */
+      --gray-page:    #F2EFE9;   /* page canvas                */
+      --gray-bar:     #EAE7E1;   /* topbar, card footer tray   */
+      --gray-hover:   #E4E1DA;   /* subtle hover on gray areas */
+
+      /* ── Silver ── */
+      --silver-text:  #7A7672;   /* secondary / muted text     */
+      --silver-mid:   #B8B4AE;   /* medium borders             */
+      --silver-lt:    #D8D4CC;   /* light borders              */
+      --silver-mark:  #D0CCC4;   /* story-number watermark     */
+
+      /* ── Gold ── */
+      --gold:         #B08C25;   /* primary accent             */
+      --gold-rich:    #C9A640;   /* slightly brighter gold     */
+      --gold-rule:    #D4B050;   /* gradient midpoint          */
+      --gold-tint:    #F8F1DC;   /* gold-tinted surface        */
+      --gold-dark:    #8A6C18;   /* gold on hover (darker)     */
+
+      /* ── Typography ── (warm neutrals, no blue) */
+      --ink:          #1A1814;   /* headlines — near-black warm */
+      --body-tx:      #3C3830;   /* body copy — warm dark       */
+      --muted:        #7A7672;   /* labels, meta, timestamps    */
+      --faint:        #C4C0B8;   /* watermarks only             */
+
+      /* ── Footer ── */
+      --footer-bg:    #1E1C17;   /* very dark warm charcoal     */
+    }
+
+    /* ═══════════════════════════════════════════════
+       BASE
+    ═══════════════════════════════════════════════ */
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--gray-page);
+      color: var(--body-tx);
+      font-size: 15.5px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ═══════════════════════════════════════════════
+       GOLD TOP RULE  — thin gold stripe at very top
+    ═══════════════════════════════════════════════ */
+    .top-rule {
+      height: 4px;
+      background: linear-gradient(90deg,
+        var(--gold) 0%, var(--gold-rule) 40%,
+        var(--gold-rich) 60%, var(--gold) 100%);
+    }
+
+    /* ═══════════════════════════════════════════════
+       TOP BAR  (light gray — calm, informational)
+    ═══════════════════════════════════════════════ */
+    .topbar {
+      background: var(--gray-bar);
+      border-bottom: 1px solid var(--silver-lt);
+      padding: 0.45rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.62rem;
+      color: var(--silver-text);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ═══════════════════════════════════════════════
+       MASTHEAD  (white — clean editorial centrepiece)
+    ═══════════════════════════════════════════════ */
+    .masthead {
+      background: var(--white);
+      border-bottom: 1px solid var(--silver-lt);
+      text-align: center;
+      padding: 3rem 1rem 2.4rem;
+      position: relative;
+    }
+    /* gold rule at the base of the masthead */
+    .masthead::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        var(--gold-rule) 25%,
+        var(--gold) 50%,
+        var(--gold-rule) 75%,
+        transparent 100%);
+    }
+
+    /* Playfair Display serif logotype */
+    .brand {
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-size: 4.2rem;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+      line-height: 1;
+    }
+    .brand .gold-word { color: var(--gold); }
+
+    /* ornament: silver lines + gold diamond */
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      margin: 1.1rem auto 0.9rem;
+    }
+    .ornament .rule   { width: 60px; height: 1px; background: var(--silver-lt); }
+    .ornament .gem    {
+      width: 7px; height: 7px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    .tagline {
+      font-size: 0.69rem;
+      color: var(--muted);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    /* edition stats bar */
+    .edition-bar {
+      display: inline-flex;
+      margin-top: 1.75rem;
+      border: 1px solid var(--silver-mid);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .e-cell {
+      padding: 0.5rem 1.5rem;
+      font-size: 0.67rem;
+      color: var(--muted);
+      background: var(--gray-bar);
+      border-right: 1px solid var(--silver-lt);
+    }
+    .e-cell:last-child { border-right: none; }
+    .e-cell strong { color: var(--gold); font-weight: 700; }
+
+    /* ═══════════════════════════════════════════════
+       WRAPPER
+    ═══════════════════════════════════════════════ */
+    .wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 5rem;
+    }
+
+    /* ═══════════════════════════════════════════════
+       SECTION HEADER
+       gold left-edge accent + silver label
+    ═══════════════════════════════════════════════ */
+    .section-hd {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin: 2.75rem 0 1.1rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid var(--silver-lt);
+      position: relative;
+    }
+    .section-hd::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0;
+      width: 52px; height: 2px;
+      background: var(--gold);
+    }
+    .sec-label {
+      font-size: 0.59rem;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .sec-count {
+      font-size: 0.57rem;
+      color: var(--silver-mid);
+      letter-spacing: 0.06em;
+      margin-left: auto;
+    }
+
+    /* ═══════════════════════════════════════════════
+       STORY CARD
+       white on light-gray — clear visual lift
+    ═══════════════════════════════════════════════ */
+    .story {
+      background: var(--white);
+      border: 1px solid var(--silver-lt);
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+    .story:hover {
+      border-color: var(--gold-rich);
+      box-shadow: 0 6px 20px rgba(176, 140, 37, 0.12);
+      transform: translateY(-1px);
+    }
+
+    /* gold top accent line on every card */
+    .story::before {
+      content: '';
+      display: block;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-rule) 60%, transparent 100%);
+    }
+
+    /* silver watermark number — top right */
+    .story-num {
+      position: absolute;
+      top: 1.2rem; right: 1.3rem;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--silver-mark);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.04em;
+    }
+
+    .story-body { padding: 1.4rem 1.55rem 1.25rem; }
+
+    /* ── Hook  (gold pill — quick-scan line) ── */
+    .hook {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--gold-tint);
+      color: var(--gold-dark);
+      border: 1px solid rgba(176, 140, 37, 0.25);
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.22rem 0.7rem 0.22rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 0.75rem;
+    }
+    .hook::before {
+      content: '';
+      display: block;
+      width: 0; height: 0;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-left: 7px solid var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ── Headline ── */
+    .story h2 {
+      font-size: 1.22rem;
+      font-weight: 800;
+      line-height: 1.3;
+      color: var(--ink);
+      margin-bottom: 0.85rem;
+      padding-right: 3rem;
+    }
+    .story h2 a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .story h2 a:hover { color: var(--gold); }
+
+    /* ── Body copy ── */
+    .summary {
+      font-size: 0.91rem;
+      color: var(--body-tx);
+      line-height: 1.86;
+    }
+
+    /* ── Why It Matters  (gold-tinted callout) ── */
+    .why {
+      background: var(--gold-tint);
+      border-top: 1px solid var(--silver-lt);
+      border-left: 3px solid var(--gold);
+      padding: 0.85rem 1.15rem 0.85rem 1.3rem;
+    }
+    .why-label {
+      font-size: 0.55rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .why p {
+      font-size: 0.875rem;
+      color: var(--body-tx);
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    /* ── Card footer tray  (light gray) ── */
+    .story-foot {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0.55rem 1.55rem;
+      background: var(--gray-bar);
+      border-top: 1px solid var(--silver-lt);
+    }
+    .read-link {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: color 0.15s;
+    }
+    .read-link:hover { color: var(--gold-dark); }
+    .read-link svg {
+      width: 9px; height: 9px;
+      stroke: currentColor; fill: none;
+      stroke-width: 1.9;
+      stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════════
+       SITE FOOTER  (warm dark charcoal)
+    ═══════════════════════════════════════════════ */
+    .site-footer {
+      background: var(--footer-bg);
+      text-align: center;
+      padding: 3.5rem 1.5rem 2.5rem;
+      position: relative;
+    }
+    /* gold rule at the very top of footer */
+    .site-footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg,
+        var(--gold) 0%, var(--gold-rule) 50%, var(--gold) 100%);
+    }
+
+    .ft-brand {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .ft-brand .gold-word { color: var(--gold-rich); }
+
+    .ft-rule { width: 40px; height: 1px; background: var(--gold); margin: 0.8rem auto; }
+
+    .ft-tagline {
+      font-size: 0.6rem;
+      color: var(--silver-mid);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .ft-src-label {
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: #403C34;
+      margin-bottom: 0.75rem;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.35rem;
+      max-width: 680px;
+      margin: 0 auto 2rem;
+    }
+    .pills a {
+      font-size: 0.61rem;
+      color: var(--silver-mid);
+      text-decoration: none;
+      border: 1px solid #352F24;
+      background: #2A2620;
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+      transition: all 0.15s;
+    }
+    .pills a:hover {
+      background: var(--gold);
+      color: var(--ink);
+      border-color: var(--gold);
+      font-weight: 600;
+    }
+
+    .ft-credit {
+      font-size: 0.6rem;
+      color: #403C34;
+      padding-top: 1.5rem;
+      border-top: 1px solid #2A2620;
+    }
+    .ft-credit strong { color: var(--silver-mid); }
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════ */
+    @media (max-width: 600px) {
+      .brand       { font-size: 2.8rem; }
+      .topbar      { display: none; }
+      .story-body  { padding: 1.2rem 1.2rem 1rem; }
+      .story-foot  { padding: 0.5rem 1.2rem; }
+      .story-num   { font-size: 1.5rem; top: 1rem; right: 1rem; }
+      .story h2    { font-size: 1.07rem; padding-right: 2.5rem; }
+      .edition-bar { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Gold rule — very first thing seen -->
+<div class="top-rule"></div>
+
+<!-- Top bar: light gray -->
+<div class="topbar">
+  <span>EST. 2026 &nbsp;·&nbsp; AUTOMATED EDITION</span>
+  <span>10 STORIES CURATED TODAY</span>
+  <span>BIGMODEL + CLAUDE CODE</span>
+</div>
+
+<!-- Masthead: white, Playfair serif, gold rule underneath -->
+<header class="masthead">
+  <div class="brand">AI <span class="gold-word">Daily</span></div>
+  <div class="ornament">
+    <span class="rule"></span>
+    <span class="gem"></span>
+    <span class="rule"></span>
+  </div>
+  <div class="tagline">Facts First &nbsp;·&nbsp; Context Always &nbsp;·&nbsp; Every Morning</div>
+  <div class="edition-bar">
+    <div class="e-cell">Sources&ensp;<strong>20</strong></div>
+    <div class="e-cell">Stories&ensp;<strong>10</strong></div>
+    <div class="e-cell">Edition&ensp;<strong>2026-04-28</strong></div>
+  </div>
+</header>
+
+<!-- Stories: light-gray canvas, white cards -->
+<main class="wrapper">
+
+  
+  
+
+  <div class="section-hd">
+    <span class="sec-label">AI Research</span>
+    <span class="sec-count">4&thinsp;stories</span>
+  </div>
+
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">01</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">Elon Musk and Sam Altman face off in a high-stakes trial over OpenAI&#39;s future.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.theverge.com/tech/917225/sam-altman-elon-musk-openai-lawsuit" target="_blank" rel="noopener noreferrer">Musk v. Altman Trial Begins</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">Elon Musk and Sam Altman are set to face off in a trial that could alter the future of OpenAI. Musk filed a lawsuit in 2024, accusing OpenAI of shifting its focus from benefiting humanity to boosting profits. The trial&#39;s outcome could have significant implications for the company&#39;s future direction and governance. Industry watchers are closely monitoring the case, which has garnered significant media attention. The trial is expected to continue for several weeks, with both sides presenting their arguments and evidence.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The trial could set a precedent for how AI startups are governed and funded, potentially affecting the competitive landscape of the AI industry. It also highlights the tensions between profit motives and ethical considerations in AI development.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.theverge.com/tech/917225/sam-altman-elon-musk-openai-lawsuit" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">02</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">Partnership aims to prevent AI agents from misusing credit cards.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.wired.com/story/the-race-is-on-to-keep-ai-agents-from-running-wild-with-your-credit-cards/" target="_blank" rel="noopener noreferrer">FIDO Alliance Partners with Google and Mastercard</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">The FIDO Alliance has partnered with Google and Mastercard to ensure that AI agents do not misuse credit cards for shopping. The collaboration aims to address the growing concern of AI agents making unauthorized purchases. The partnership is part of a broader effort to secure AI applications and protect consumers from potential fraud.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The partnership highlights the importance of securing AI applications and the collaborative efforts required to address the challenges posed by AI in the consumer space. It also underscores the need for industry-wide standards to protect against AI-related fraud.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.wired.com/story/the-race-is-on-to-keep-ai-agents-from-running-wild-with-your-credit-cards/" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">03</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">NVIDIA launches a new multimodal AI model for efficient agents.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://blogs.nvidia.com/blog/nemotron-3-nano-omni-multimodal-ai-agents/" target="_blank" rel="noopener noreferrer">NVIDIA Nemotron 3 Nano Omni</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">NVIDIA has launched Nemotron 3 Nano Omni, a new multimodal AI model that unifies vision, audio, and language for more efficient AI agents. The model aims to improve the performance and efficiency of AI agents by integrating multiple modalities into a single system.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The launch of Nemotron 3 Nano Omni represents a significant advancement in multimodal AI, potentially leading to more sophisticated and efficient AI applications. It also highlights NVIDIA&#39;s leadership in AI research and development.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://blogs.nvidia.com/blog/nemotron-3-nano-omni-multimodal-ai-agents/" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">04</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">Kakao Mobility outlines plans for Level 4 autonomous driving technologies.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.artificialintelligence-news.com/news/kakao-mobility-level-4-autonomous-driving-roadmap/" target="_blank" rel="noopener noreferrer">Kakao Mobility&#39;s Autonomous Driving Roadmap</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">Kakao Mobility has presented a roadmap for developing Level 4 autonomous driving technologies as part of its physical AI strategy. The company aims to build in-house capabilities to support its autonomous driving services.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The roadmap highlights the progress being made in the development of autonomous driving technologies and the increasing focus on in-house development by companies in the AI and mobility sectors.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.artificialintelligence-news.com/news/kakao-mobility-level-4-autonomous-driving-roadmap/" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+
+  
+
+  <div class="section-hd">
+    <span class="sec-label">Product Launch</span>
+    <span class="sec-count">3&thinsp;stories</span>
+  </div>
+
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">05</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">Chatbot-style changes are coming to the iconic trading platform.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.wired.com/story/the-bloomberg-terminal-is-getting-an-ai-makeover-like-it-or-not/" target="_blank" rel="noopener noreferrer">Bloomberg Terminal Gets AI Makeover</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">Bloomberg&#39;s iconic terminal is set to undergo a significant AI-driven transformation, featuring chatbot-style changes. The update aims to enhance the platform&#39;s functionality and user experience for traders. The move reflects the broader trend of integrating AI into financial services to improve efficiency and decision-making.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The AI makeover of the Bloomberg Terminal is a significant development in the integration of AI into financial services, indicating a shift towards more personalized and efficient trading platforms. It also highlights the potential of AI to transform traditional industries.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.wired.com/story/the-bloomberg-terminal-is-getting-an-ai-makeover-like-it-or-not/" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">06</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">OpenAI&#39;s GPT models and Codex now available on AWS.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://openai.com/index/openai-on-aws" target="_blank" rel="noopener noreferrer">OpenAI Models on AWS</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">OpenAI has made its GPT models and Codex available on AWS, enabling enterprises to build secure AI solutions in their AWS environments. This move expands the reach of OpenAI&#39;s AI tools and provides more options for businesses looking to integrate AI into their operations.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The availability of OpenAI&#39;s models on AWS opens up new possibilities for businesses to leverage advanced AI technologies, potentially leading to innovations in various industries. It also highlights the importance of cloud computing in the AI ecosystem.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://openai.com/index/openai-on-aws" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">07</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">IBM&#39;s Bob platform aims to regulate software delivery costs and SDLC governance.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.artificialintelligence-news.com/news/ibm-launches-ai-platform-bob-to-regulate-sdlc-costs/" target="_blank" rel="noopener noreferrer">IBM Launches AI Platform Bob</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">IBM has launched Bob, an AI platform designed to regulate software delivery costs and software development life cycle (SDLC) governance. The platform aims to help enterprises manage technical debt and compliance requirements while leveraging the speed of coding assistants.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The launch of Bob reflects IBM&#39;s commitment to AI-driven solutions for software development. It also highlights the growing importance of AI in managing the complexities of software development and delivery.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.artificialintelligence-news.com/news/ibm-launches-ai-platform-bob-to-regulate-sdlc-costs/" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+
+  
+
+  <div class="section-hd">
+    <span class="sec-label">Policy &amp; Regulation</span>
+    <span class="sec-count">1&thinsp;story</span>
+  </div>
+
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">08</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">Google allows the Pentagon to use its AI for &#39;any lawful government purpose&#39;.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.theverge.com/ai-artificial-intelligence/919494/google-pentagon-classified-ai-deal" target="_blank" rel="noopener noreferrer">Google Signs AI Deal with Pentagon</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">Google has signed a classified deal with the US Department of Defense that permits the use of its AI models for &#39;any lawful government purpose.&#39; This agreement follows employee protests against the use of Google&#39;s AI by the Pentagon. The deal has raised concerns about the potential misuse of AI technology and the role of tech companies in military applications. It also highlights the growing importance of AI in national defense and the challenges of balancing innovation with ethical considerations.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The deal underscores the increasing integration of AI into military applications and the potential risks associated with such integration. It also raises questions about the role of tech companies in national security and the balance between innovation and ethical considerations.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.theverge.com/ai-artificial-intelligence/919494/google-pentagon-classified-ai-deal" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+
+  
+
+  <div class="section-hd">
+    <span class="sec-label">Industry News</span>
+    <span class="sec-count">1&thinsp;story</span>
+  </div>
+
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">09</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">Over 700 Meta contractor workers in Ireland could lose their jobs.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.wired.com/story/meta-covalen-ai-workers-layoffs/" target="_blank" rel="noopener noreferrer">Meta AI Workers at Risk of Layoffs</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">More than 700 workers employed by a Meta contractor in Ireland are at risk of losing their jobs, according to documents. The workers are involved in training AI systems for Meta. The potential layoffs come amidst a broader debate about the impact of AI on employment and the future of work. The situation highlights the challenges faced by companies as they integrate AI into their operations.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The layoffs underscore the potential disruptions caused by AI adoption in the workforce and the need for companies to manage the transition carefully to minimize job losses. It also raises questions about the long-term sustainability of AI training jobs.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.wired.com/story/meta-covalen-ai-workers-layoffs/" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+
+  
+
+  <div class="section-hd">
+    <span class="sec-label">Funding &amp; M&amp;A</span>
+    <span class="sec-count">1&thinsp;story</span>
+  </div>
+
+  
+  
+  <article class="story">
+
+    <!-- silver watermark number -->
+    <span class="story-num">10</span>
+
+    <div class="story-body">
+
+      <!-- gold hook pill -->
+      
+      <div class="hook">Lightelligence&#39;s IPO bets on AI&#39;s next bottleneck: optical interconnects.</div>
+      
+
+      <!-- headline -->
+      <h2>
+        
+        <a href="https://www.artificialintelligence-news.com/news/lightelligence-ipo-optical-interconnect-ai-infrastructure/" target="_blank" rel="noopener noreferrer">Lightelligence&#39;s IPO</a>
+        
+      </h2>
+
+      <!-- body copy -->
+      <p class="summary">Lightelligence, a company focused on optical interconnects for AI, has seen its market capitalization briefly hit $10 billion in its IPO debut. The company&#39;s success is attributed to its focus on addressing the bottleneck of optical interconnects in AI infrastructure.</p>
+
+    </div>
+
+    <!-- gold-tinted callout -->
+    
+    <div class="why">
+      <div class="why-label">Why it matters</div>
+      <p>The IPO reflects the growing interest in AI infrastructure and the potential of optical interconnects to improve AI performance. It also highlights the importance of addressing infrastructure bottlenecks to advance AI technology.</p>
+    </div>
+    
+
+    <!-- light-gray tray with gold read link -->
+    
+    <div class="story-foot">
+      <a class="read-link" href="https://www.artificialintelligence-news.com/news/lightelligence-ipo-optical-interconnect-ai-infrastructure/" target="_blank" rel="noopener noreferrer">
+        Read full story
+        <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="3,1 9,1 9,7"/></svg>
+      </a>
+    </div>
+    
+
+  </article>
+  
+
+  
+
+</main>
+
+<!-- Footer: warm dark charcoal with gold accents -->
+<footer class="site-footer">
+  <div class="ft-brand">AI <span class="gold-word">Daily</span></div>
+  <div class="ft-rule"></div>
+  <div class="ft-tagline">Facts First &nbsp;·&nbsp; Context Always &nbsp;·&nbsp; Every Morning</div>
+
+  <div class="ft-src-label">Sources Monitored This Edition</div>
+  <div class="pills">
+    
+    <a href="https://techcrunch.com/tag/artificial-intelligence/feed/" target="_blank" rel="noopener noreferrer">TechCrunch AI</a>
+    
+    <a href="https://www.theverge.com/rss/ai-artificial-intelligence/index.xml" target="_blank" rel="noopener noreferrer">The Verge AI</a>
+    
+    <a href="https://www.wired.com/feed/tag/ai/latest/rss" target="_blank" rel="noopener noreferrer">Wired AI</a>
+    
+    <a href="https://feeds.arstechnica.com/arstechnica/technology-lab" target="_blank" rel="noopener noreferrer">Ars Technica</a>
+    
+    <a href="https://venturebeat.com/category/ai/feed/" target="_blank" rel="noopener noreferrer">VentureBeat AI</a>
+    
+    <a href="https://www.technologyreview.com/feed/" target="_blank" rel="noopener noreferrer">MIT Technology Review</a>
+    
+    <a href="https://feeds.reuters.com/reuters/technologyNews" target="_blank" rel="noopener noreferrer">Reuters Technology</a>
+    
+    <a href="https://www.theguardian.com/technology/artificialintelligenceai/rss" target="_blank" rel="noopener noreferrer">The Guardian AI</a>
+    
+    <a href="http://feeds.bbci.co.uk/news/technology/rss.xml" target="_blank" rel="noopener noreferrer">BBC Technology</a>
+    
+    <a href="https://apnews.com/rss/apf-technology" target="_blank" rel="noopener noreferrer">AP News Technology</a>
+    
+    <a href="https://openai.com/blog/rss.xml" target="_blank" rel="noopener noreferrer">OpenAI Blog</a>
+    
+    <a href="https://www.anthropic.com/rss.xml" target="_blank" rel="noopener noreferrer">Anthropic Blog</a>
+    
+    <a href="https://deepmind.google/blog/rss.xml" target="_blank" rel="noopener noreferrer">Google DeepMind</a>
+    
+    <a href="https://huggingface.co/blog/feed.xml" target="_blank" rel="noopener noreferrer">Hugging Face Blog</a>
+    
+    <a href="https://www.artificialintelligence-news.com/feed/" target="_blank" rel="noopener noreferrer">AI News</a>
+    
+    <a href="https://www.zdnet.com/topic/artificial-intelligence/rss.xml" target="_blank" rel="noopener noreferrer">ZDNet AI</a>
+    
+    <a href="https://www.infoq.com/ai-ml-data-eng/rss/" target="_blank" rel="noopener noreferrer">InfoQ AI</a>
+    
+    <a href="https://blogs.nvidia.com/feed/" target="_blank" rel="noopener noreferrer">NVIDIA Blog</a>
+    
+    <a href="https://towardsdatascience.com/feed" target="_blank" rel="noopener noreferrer">Towards Data Science</a>
+    
+    <a href="https://importai.substack.com/feed" target="_blank" rel="noopener noreferrer">Import AI (Jack Clark)</a>
+    
+  </div>
+
+  <div class="ft-credit">
+    Generated by <strong>AI Daily</strong> &nbsp;·&nbsp; 2026-04-28
+    &nbsp;·&nbsp; Powered by <strong>BigModel GLM-4-Flash</strong> + <strong>Claude Code</strong>
+  </div>
+</footer>
+
+</body>
+</html>
